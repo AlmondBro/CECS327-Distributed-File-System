@@ -17,6 +17,7 @@ public class Client
             // join, ls, touch, delete, read, tail, head, append, move
     }
     
+    //Whenever a client is instantiated, it'll run an instance of the client?
     static public void main(String args[]) throws Exception
     {
         if (args.length < 1 ) {
