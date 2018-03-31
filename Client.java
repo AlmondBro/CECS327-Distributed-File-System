@@ -6,7 +6,6 @@ import java.math.BigInteger;
 import java.security.*;
 import java.nio.file.*;
 
-
 public class Client
 {
     DFS dfs;
@@ -15,8 +14,17 @@ public class Client
         
             // User interface:
             // join, ls, touch, delete, read, tail, head, append, move
+            // call printDFS() 
+            // ask user to give a name to the file
+
+            /* 
+                1. Run 3 clients
+                2. Join them to the network
+            
+            */
     }
-    //Whenever a client is instantiated, it'll run an instance of the client?
+
+    //Whenever a client is instantiated, it'll run an instance of the client? Create three clients, and join two of them (overheard)
     static public void main(String args[]) throws Exception
     {
         if (args.length < 1 ) {

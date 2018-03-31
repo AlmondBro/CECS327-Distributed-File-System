@@ -1,0 +1,25 @@
+{
+    "metadata" :
+    {
+        file1 : 
+        {
+            name="file1"
+            size = 1
+            Pages : {
+                number="1"
+                guid="103881101"
+                size=1
+            }
+        }
+        file2 :
+        {
+            name="file2"
+            size=274
+            Pages : {
+                number="1"
+                guid="24452453"
+                size=274
+            }
+        }
+    }
+}

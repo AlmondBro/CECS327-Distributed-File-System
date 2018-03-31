@@ -1,0 +1,21 @@
+{
+    "metadata" :
+    {
+        file : 
+        {
+            name="file1"
+            size = 1
+            Pages : {
+                number="1"
+                guid="103881101"
+                size=1
+            }
+        }
+    }
+}
+
+
+
+
+touch file1
+append file1 mylocalfile
