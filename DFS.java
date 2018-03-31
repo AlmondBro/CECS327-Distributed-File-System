@@ -17,11 +17,11 @@ import java.security.*;
         {
             name  : "File1"
             numberOfPages : "3"
-            pageSize : "1024"
-            size : "2291"
+            pageSize : "1024" //dont worry about this
+            size : "2291" 
             page :
             {
-                number : "1"
+                number : "1" //dont worry about number, since JSON keeps track this.
                 guid   : "22412"
                 size   : "1024"
             }
@@ -48,7 +48,7 @@ import java.security.*;
 public class DFS
 {
     int port;
-    Chord  chord;
+    Chord chord;
     
     private long md5(String objectName)
     {
@@ -68,18 +68,15 @@ public class DFS
         return 0;
     }
     
-    
-    
     public DFS(int port) throws Exception
     {
-        
         this.port = port;
         long guid = md5("" + port);
         chord = new Chord(port, guid);
         Files.createDirectories(Paths.get(guid+"/repository"));
     }
-    
-    public  void join(String Ip, int port) throws Exception
+
+    public void join(String Ip, int port) throws Exception
     {
         chord.joinRing(Ip, port);
         chord.Print();
@@ -109,7 +106,6 @@ public class DFS
         // Write Metadata
     }
 
-    
     public String ls() throws Exception
     {
         String listOfFiles = "";
@@ -117,16 +113,13 @@ public class DFS
        // JsonParser jp = readMetaData();
         return listOfFiles;
     }
-
     
     public void touch(String fileName) throws Exception
     {
          // TODO: Create the file fileName by adding a new entry to the Metadata
         // Write Metadata
-
-        
-        
     }
+    
     public void delete(String fileName) throws Exception
     {
         // TODO: remove all the pages in the entry fileName in the Metadata and then the entry
@@ -135,8 +128,6 @@ public class DFS
         //     peer.delete(page.guid)
         // delete Metadata.filename
         // Write Metadata
-
-        
     }
     
     public Byte[] read(String fileName, int pageNumber) throws Exception
@@ -162,9 +153,7 @@ public class DFS
         // Let guid be the last page in Metadata.filename
         //ChordMessageInterface peer = chord.locateSuccessor(guid);
         //peer.put(guid, data);
-        // Write Metadata
-
-        
+        // Write Metadata        
     }
     
 }

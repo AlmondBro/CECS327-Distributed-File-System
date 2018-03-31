@@ -1,0 +1,31 @@
+{
+    "metadata" :
+    {
+        "file" :
+        {
+            name  : "File1"
+            numberOfPages : "3"
+            pageSize : "1024" //dont worry about this
+            size : "2291" 
+            page :
+            {
+                number : "1" //dont worry about number, since JSON keeps track this.
+                guid   : "22412"
+                size   : "1024"
+            }
+            page :
+            {
+                number : "2"
+                guid   : "46312"
+                size   : "1024"
+            }
+            page :
+            {
+                number : "3"
+                guid   : "93719"
+                size   : "243"
+            }
+        }
+    }
+}
+ 
