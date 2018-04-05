@@ -77,9 +77,9 @@ public class DFS
     {
         gson = new Gson();
         
-        MetaFile file = new MetaFile("New-name", 0, 0, 0);
+        ArrayList<Page> pages = new ArrayList<Page>();
+        MetaFile file = new MetaFile("New-name", 0, 0, 0, pages);
         Metadata metadata = new Metadata("New-name", file);
-        
         
         json = gson.toJson(metadata);
         
@@ -138,7 +138,7 @@ public class DFS
     {
          // TODO: Create the file fileName by adding a new entry to the Metadata
         // Write Metadata
-
+    	
         
         
     }
@@ -150,7 +150,7 @@ public class DFS
         //     peer.delete(page.guid)
         // delete Metadata.filename
         // Write Metadata
-
+    	
         
     }
     
