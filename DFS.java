@@ -6,6 +6,7 @@ import java.nio.file.*;
 import java.math.BigInteger;
 import java.security.*;
 // import a json package
+import com.google.gson.*;
 
 
 /* JSON Format
@@ -48,7 +49,8 @@ import java.security.*;
 public class DFS
 {
     int port;
-    Chord  chord;
+    Chord chord;
+    Gson gson;
     
     private long md5(String objectName)
     {
@@ -72,6 +74,15 @@ public class DFS
     
     public DFS(int port) throws Exception
     {
+        gson = new Gson();
+        
+        MetaFile file = new MetaFile("New-name", 0, 0, 0);
+        Metadata metadata = new Metadata("New-name", file);
+        
+        
+        String json = gson.toJson(metadata);
+        
+        System.out.println(json);
         
         this.port = port;
         long guid = md5("" + port);
@@ -107,6 +118,9 @@ public class DFS
     {
         // TODO:  Change the name in Metadata
         // Write Metadata
+        
+    	// Serialization
+    	
     }
 
     
@@ -163,7 +177,7 @@ public class DFS
         //ChordMessageInterface peer = chord.locateSuccessor(guid);
         //peer.put(guid, data);
         // Write Metadata
-
+    	
         
     }
     
