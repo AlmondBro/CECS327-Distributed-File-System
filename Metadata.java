@@ -8,4 +8,9 @@ public class Metadata {
 		this.name = name;
 		this.file = file;
 	}
+	
+	public void changeName(String newname)
+	{
+		name = newname;
+	}
 }

@@ -50,7 +50,8 @@ public class DFS
 {
     int port;
     Chord chord;
-    Gson gson;
+    private Gson gson;
+    private String json;
     
     private long md5(String objectName)
     {
@@ -80,7 +81,7 @@ public class DFS
         Metadata metadata = new Metadata("New-name", file);
         
         
-        String json = gson.toJson(metadata);
+        json = gson.toJson(metadata);
         
         System.out.println(json);
         
@@ -119,8 +120,8 @@ public class DFS
         // TODO:  Change the name in Metadata
         // Write Metadata
         
-    	// Serialization
-    	
+    	Metadata metadata = gson.fromJson(json, Metadata.class);
+    	metadata.changeName(newName);
     }
 
     
