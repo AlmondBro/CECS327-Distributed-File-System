@@ -77,9 +77,10 @@ public class DFS
     {
         gson = new Gson();
         
-        ArrayList<Page> pages = new ArrayList<Page>();
-        MetaFile file = new MetaFile("New-name", 0, 0, 0, pages);
-        Metadata metadata = new Metadata("New-name", file);
+        //ArrayList<Page> pages = new ArrayList<Page>();
+        //MetaFile file = new MetaFile("New-name", 0, 0, 0, pages);
+        ArrayList<MetaFile> files = new ArrayList<MetaFile>();
+        Metadata metadata = new Metadata("New-name", files);
         
         json = gson.toJson(metadata);
         
@@ -122,6 +123,7 @@ public class DFS
         
     	Metadata metadata = gson.fromJson(json, Metadata.class);
     	metadata.changeName(newName);
+    	json = gson.toJson(metadata);
     }
 
     
@@ -130,17 +132,22 @@ public class DFS
         String listOfFiles = "";
        // TODO: returns all the files in the Metadata
        // JsonParser jp = readMetaData();
+        
+        Metadata metadata = gson.fromJson(json, Metadata.class);
+    	listOfFiles = metadata.getFileNames();
+        
         return listOfFiles;
     }
 
     
     public void touch(String fileName) throws Exception
     {
-         // TODO: Create the file fileName by adding a new entry to the Metadata
+        // TODO: Create the file fileName by adding a new entry to the Metadata
         // Write Metadata
     	
-        
-        
+    	Metadata metadata = gson.fromJson(json, Metadata.class);
+    	metadata.createFile(fileName);
+    	json = gson.toJson(metadata);
     }
     public void delete(String fileName) throws Exception
     {
@@ -161,15 +168,49 @@ public class DFS
     }
     
     
-    public Byte[] tail(String fileName) throws Exception
+    public byte[] tail(String fileName) throws Exception
     {
         // TODO: return the last page of the fileName
-        return null;
+    	Metadata metadata = gson.fromJson(json, Metadata.class);
+    	Page page = metadata.getFile(fileName).getLastPage();
+    	
+    	ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    	ObjectOutput out = null;
+    	byte[] yourBytes;
+    	try {
+    	  out = new ObjectOutputStream(bos);   
+    	  out.writeObject(page);
+    	  out.flush();
+    	  yourBytes = bos.toByteArray();
+    	} finally {
+    	  try {
+    	    bos.close();
+    	  } catch (IOException ex) {
+    	  }
+    	}
+    	return yourBytes;
     }
-    public Byte[] head(String fileName) throws Exception
+    public byte[] head(String fileName) throws Exception
     {
         // TODO: return the first page of the fileName
-        return null;
+    	Metadata metadata = gson.fromJson(json, Metadata.class);
+    	Page page = metadata.getFile(fileName).getFirstPage();
+    	
+    	ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    	ObjectOutput out = null;
+    	byte[] yourBytes;
+    	try {
+    	  out = new ObjectOutputStream(bos);   
+    	  out.writeObject(page);
+    	  out.flush();
+    	  yourBytes = bos.toByteArray();
+    	} finally {
+    	  try {
+    	    bos.close();
+    	  } catch (IOException ex) {
+    	  }
+    	}
+    	return yourBytes;
     }
     public void append(String filename, Byte[] data) throws Exception
     {

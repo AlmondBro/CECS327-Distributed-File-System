@@ -16,4 +16,17 @@ public class MetaFile {
 		this.size = size;
 		this.pages = pages;
 	}
+	
+	public String getName()
+	{
+		return name;
+	}
+	public Page getLastPage()
+	{
+		return pages.get(pages.size() - 1);
+	}
+	public Page getFirstPage()
+	{
+		return pages.get(0);
+	}
 }
