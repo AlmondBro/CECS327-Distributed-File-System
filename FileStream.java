@@ -7,7 +7,7 @@ public class FileStream extends InputStream implements Serializable {
   
     private int currentPosition;
     private byte[] byteBuffer;
-    private int size;
+    private int size; //make public or make a getter to use to get the size of the file in 
     
     public FileStream(String pathName) throws FileNotFoundException, IOException    {
       File file = new File(pathName);
@@ -32,14 +32,18 @@ public class FileStream extends InputStream implements Serializable {
     public int read() throws IOException
     {
  	    if (currentPosition < size) {
-      return (int)byteBuffer[currentPosition++];
+        return (int)byteBuffer[currentPosition++];
+      }
     }
- 	
  	    return 0;
     }
     
     public int available() throws IOException
     {
-	return size - currentPosition;
+	    return size - currentPosition;
+    }
+
+    public int getSize() {
+      return this.size;
     }
 }

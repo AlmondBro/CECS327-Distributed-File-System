@@ -8,6 +8,12 @@ import java.nio.file.*;
 
 public class Client
 {
+    /*  Questions:
+        1. Do we use the DFS class inside the metadata, metafile, and class pages that we create?
+            or do we use the Metadata, metafile, and class pages inside the DFS class?
+        2.      
+    
+    */
     DFS dfs;
     public Client(int p) throws Exception {
         dfs = new DFS(p);

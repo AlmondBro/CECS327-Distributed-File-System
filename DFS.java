@@ -118,6 +118,7 @@ public class DFS
     {
          // TODO: Create the file fileName by adding a new entry to the Metadata
         // Write Metadata
+        Metadata.createFile()
     }
     
     public void delete(String fileName) throws Exception
@@ -128,6 +129,7 @@ public class DFS
         //     peer.delete(page.guid)
         // delete Metadata.filename
         // Write Metadata
+        Metadata.delete
     }
     
     public Byte[] read(String fileName, int pageNumber) throws Exception
@@ -135,7 +137,6 @@ public class DFS
         // TODO: read pageNumber from fileName
         return null;
     }
-    
     
     public Byte[] tail(String fileName) throws Exception
     {
@@ -147,13 +148,16 @@ public class DFS
         // TODO: return the first page of the fileName
         return null;
     }
-    public void append(String filename, Byte[] data) throws Exception
+    public void append(String filename, InputStream data) throws Exception
     {
+        //My comments: 
+        //InputStream is from the filestream class! 
+        //fileName is the file that you append to your current file (data?)
+
         // TODO: append data to fileName. If it is needed, add a new page.
         // Let guid be the last page in Metadata.filename
         //ChordMessageInterface peer = chord.locateSuccessor(guid);
         //peer.put(guid, data);
         // Write Metadata        
     }
-    
 }
