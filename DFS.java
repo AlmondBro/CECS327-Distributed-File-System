@@ -6,6 +6,7 @@ import java.nio.file.*;
 import java.math.BigInteger;
 import java.security.*;
 // import a json package
+import com.google.gson.*;
 
 
 /* JSON Format
@@ -49,6 +50,11 @@ public class DFS
 {
     int port;
     Chord chord;
+<<<<<<< HEAD
+=======
+    private Gson gson;
+    private String json;
+>>>>>>> 0e8e31d8ed6ecfa88054d50fb6ef799bae73f43f
     
     private long md5(String objectName)
     {
@@ -70,6 +76,20 @@ public class DFS
     
     public DFS(int port) throws Exception
     {
+<<<<<<< HEAD
+=======
+        gson = new Gson();
+        
+        //ArrayList<Page> pages = new ArrayList<Page>();
+        //MetaFile file = new MetaFile("New-name", 0, 0, 0, pages);
+        ArrayList<MetaFile> files = new ArrayList<MetaFile>();
+        Metadata metadata = new Metadata("New-name", files);
+        
+        json = gson.toJson(metadata);
+        
+        System.out.println(json);
+        
+>>>>>>> 0e8e31d8ed6ecfa88054d50fb6ef799bae73f43f
         this.port = port;
         long guid = md5("" + port);
         chord = new Chord(port, guid);
@@ -104,6 +124,10 @@ public class DFS
     {
         // TODO:  Change the name in Metadata
         // Write Metadata
+        
+    	Metadata metadata = gson.fromJson(json, Metadata.class);
+    	metadata.changeName(newName);
+    	json = gson.toJson(metadata);
     }
 
     public String ls() throws Exception
@@ -111,14 +135,25 @@ public class DFS
         String listOfFiles = "";
        // TODO: returns all the files in the Metadata
        // JsonParser jp = readMetaData();
+        
+        Metadata metadata = gson.fromJson(json, Metadata.class);
+    	listOfFiles = metadata.getFileNames();
+        
         return listOfFiles;
     }
     
     public void touch(String fileName) throws Exception
     {
-         // TODO: Create the file fileName by adding a new entry to the Metadata
+        // TODO: Create the file fileName by adding a new entry to the Metadata
         // Write Metadata
+<<<<<<< HEAD
         Metadata.createFile()
+=======
+    	
+    	Metadata metadata = gson.fromJson(json, Metadata.class);
+    	metadata.createFile(fileName);
+    	json = gson.toJson(metadata);
+>>>>>>> 0e8e31d8ed6ecfa88054d50fb6ef799bae73f43f
     }
     
     public void delete(String fileName) throws Exception
@@ -129,7 +164,12 @@ public class DFS
         //     peer.delete(page.guid)
         // delete Metadata.filename
         // Write Metadata
+<<<<<<< HEAD
         Metadata.delete
+=======
+    	
+        
+>>>>>>> 0e8e31d8ed6ecfa88054d50fb6ef799bae73f43f
     }
     
     public Byte[] read(String fileName, int pageNumber) throws Exception
@@ -138,15 +178,54 @@ public class DFS
         return null;
     }
     
+<<<<<<< HEAD
     public Byte[] tail(String fileName) throws Exception
+=======
+    
+    public byte[] tail(String fileName) throws Exception
+>>>>>>> 0e8e31d8ed6ecfa88054d50fb6ef799bae73f43f
     {
         // TODO: return the last page of the fileName
-        return null;
+    	Metadata metadata = gson.fromJson(json, Metadata.class);
+    	Page page = metadata.getFile(fileName).getLastPage();
+    	
+    	ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    	ObjectOutput out = null;
+    	byte[] yourBytes;
+    	try {
+    	  out = new ObjectOutputStream(bos);   
+    	  out.writeObject(page);
+    	  out.flush();
+    	  yourBytes = bos.toByteArray();
+    	} finally {
+    	  try {
+    	    bos.close();
+    	  } catch (IOException ex) {
+    	  }
+    	}
+    	return yourBytes;
     }
-    public Byte[] head(String fileName) throws Exception
+    public byte[] head(String fileName) throws Exception
     {
         // TODO: return the first page of the fileName
-        return null;
+    	Metadata metadata = gson.fromJson(json, Metadata.class);
+    	Page page = metadata.getFile(fileName).getFirstPage();
+    	
+    	ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    	ObjectOutput out = null;
+    	byte[] yourBytes;
+    	try {
+    	  out = new ObjectOutputStream(bos);   
+    	  out.writeObject(page);
+    	  out.flush();
+    	  yourBytes = bos.toByteArray();
+    	} finally {
+    	  try {
+    	    bos.close();
+    	  } catch (IOException ex) {
+    	  }
+    	}
+    	return yourBytes;
     }
     public void append(String filename, InputStream data) throws Exception
     {
@@ -158,6 +237,12 @@ public class DFS
         // Let guid be the last page in Metadata.filename
         //ChordMessageInterface peer = chord.locateSuccessor(guid);
         //peer.put(guid, data);
+<<<<<<< HEAD
         // Write Metadata        
+=======
+        // Write Metadata
+    	
+        
+>>>>>>> 0e8e31d8ed6ecfa88054d50fb6ef799bae73f43f
     }
 }

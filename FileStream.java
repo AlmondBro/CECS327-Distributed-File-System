@@ -4,7 +4,7 @@ import java.nio.*;
 //only to transfer a file from local to remote
 // use when you do the append
 public class FileStream extends InputStream implements Serializable {
-  
+
     private int currentPosition;
     private byte[] byteBuffer;
     private int size; //make public or make a getter to use to get the size of the file in 
