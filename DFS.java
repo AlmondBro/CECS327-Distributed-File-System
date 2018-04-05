@@ -161,10 +161,28 @@ public class DFS
         
     }
     
-    public Byte[] read(String fileName, int pageNumber) throws Exception
+    public byte[] read(String fileName, int pageNumber) throws Exception
     {
         // TODO: read pageNumber from fileName
-        return null;
+    	Metadata metadata = gson.fromJson(json, Metadata.class);
+    	Page page = metadata.getFile(fileName).getPage(pageNumber);
+    	
+    	ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    	ObjectOutput out = null;
+    	byte[] yourBytes;
+    	try {
+    	  out = new ObjectOutputStream(bos);   
+    	  out.writeObject(page);
+    	  out.flush();
+    	  yourBytes = bos.toByteArray();
+    	} finally {
+    	  try {
+    	    bos.close();
+    	  } catch (IOException ex) {
+    	  }
+    	}
+    	
+        return yourBytes;
     }
     
     
