@@ -1,14 +1,29 @@
 import java.util.ArrayList;
 
+/*
+public class Metadata {
+    private ArrayList<Metafile> metafiles; 
+    
+    public Metadata() {
+        this.metafiles = new ArrayList<Metafile>;
+    } 
+
+    public addFile(string fileName) {
+    }
+
+    public void append(String fileName, long GUID) {
+        
+    }
+} */
 
 public class Metadata {
 	private String name;
-	private ArrayList<MetaFile> files;
+	private ArrayList<Metafile> metafiles; 
 	
-	public Metadata(String name, ArrayList<MetaFile> files)
+	public Metadata(String name, ArrayList<MetaFile> metafiles)
 	{
 		this.name = name;
-		this.files = files;
+		this.metafiles = metafiles;
 	}
 	
 	public void changeName(String newname)
@@ -18,9 +33,9 @@ public class Metadata {
 	public String getFileNames()
 	{
 		String fileNames = "";
-		for(int i = 0; i < files.size(); i++)
+		for(int i = 0; i < metafiles.size(); i++)
 		{
-			fileNames = fileNames + files.get(i).getName();
+			fileNames = fileNames + metafiles.get(i).getName();
 		}
 		return fileNames;
 	}
@@ -31,11 +46,18 @@ public class Metadata {
 	}
 	public MetaFile getFile(String fileName) throws Exception
 	{
-		for(int i = 0; i < files.size(); i++)
+		for(int i = 0; i < metafiles.size(); i++)
 		{
-			if(files.get(i).getName().equals(fileName))
-				return files.get(i);
+			if(metafiles.get(i).getName().equals(fileName))
+				return metafiles.get(i);
 		}
 		throw new Exception("A file with that name does not exist!");
+	}
+	public void toJson() {
+
+	}
+
+	public readfromJSON() {
+		
 	}
 }

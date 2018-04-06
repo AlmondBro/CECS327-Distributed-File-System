@@ -11,7 +11,11 @@ import com.google.gson.*;
 
 /* JSON Format
 
- {
+ { //use method put in chord to send to the cloud 
+    // use md5 of localfile for GUID for page 
+    // delete pages then delete the file as well
+    //page is an actually physical file in the cloud
+    //use put() from Chord to upload to the network
     "metadata" :
     {
         file :
@@ -41,20 +45,14 @@ import com.google.gson.*;
         }
     }
 }
- 
- 
  */
-
 
 public class DFS
 {
     int port;
     Chord chord;
-<<<<<<< HEAD
-=======
     private Gson gson;
     private String json;
->>>>>>> 0e8e31d8ed6ecfa88054d50fb6ef799bae73f43f
     
     private long md5(String objectName)
     {
@@ -76,8 +74,6 @@ public class DFS
     
     public DFS(int port) throws Exception
     {
-<<<<<<< HEAD
-=======
         gson = new Gson();
         
         //ArrayList<Page> pages = new ArrayList<Page>();
@@ -89,15 +85,13 @@ public class DFS
         
         System.out.println(json);
         
->>>>>>> 0e8e31d8ed6ecfa88054d50fb6ef799bae73f43f
         this.port = port;
         long guid = md5("" + port);
         chord = new Chord(port, guid);
         Files.createDirectories(Paths.get(guid+"/repository"));
     }
 
-    public void join(String Ip, int port) throws Exception
-    {
+    public void join(String Ip, int port) throws Exception {
         chord.joinRing(Ip, port);
         chord.Print();
     }
@@ -120,8 +114,7 @@ public class DFS
         peer.put(guid, stream);
     }
    */
-    public void mv(String oldName, String newName) throws Exception
-    {
+    public void mv(String oldName, String newName) throws Exception {
         // TODO:  Change the name in Metadata
         // Write Metadata
         
@@ -130,8 +123,7 @@ public class DFS
     	json = gson.toJson(metadata);
     }
 
-    public String ls() throws Exception
-    {
+    public String ls() throws Exception {
         String listOfFiles = "";
        // TODO: returns all the files in the Metadata
        // JsonParser jp = readMetaData();
@@ -142,49 +134,31 @@ public class DFS
         return listOfFiles;
     }
     
-    public void touch(String fileName) throws Exception
-    {
+    public void touch(String fileName) throws Exception {
         // TODO: Create the file fileName by adding a new entry to the Metadata
         // Write Metadata
-<<<<<<< HEAD
-        Metadata.createFile()
-=======
-    	
+        metadata.createFile();
+        
     	Metadata metadata = gson.fromJson(json, Metadata.class);
     	metadata.createFile(fileName);
     	json = gson.toJson(metadata);
->>>>>>> 0e8e31d8ed6ecfa88054d50fb6ef799bae73f43f
     }
     
-    public void delete(String fileName) throws Exception
-    {
+    public void delete(String fileName) throws Exception {
         // TODO: remove all the pages in the entry fileName in the Metadata and then the entry
         // for each page in Metadata.filename
         //     peer = chord.locateSuccessor(page.guid);
         //     peer.delete(page.guid)
         // delete Metadata.filename
-        // Write Metadata
-<<<<<<< HEAD
-        Metadata.delete
-=======
-    	
-        
->>>>>>> 0e8e31d8ed6ecfa88054d50fb6ef799bae73f43f
+        // Write Metadata    	
     }
-    
-    public Byte[] read(String fileName, int pageNumber) throws Exception
-    {
+
+    public Byte[] read(String fileName, int pageNumber) throws Exception {
         // TODO: read pageNumber from fileName
         return null;
     }
     
-<<<<<<< HEAD
-    public Byte[] tail(String fileName) throws Exception
-=======
-    
-    public byte[] tail(String fileName) throws Exception
->>>>>>> 0e8e31d8ed6ecfa88054d50fb6ef799bae73f43f
-    {
+    public Byte[] tail(String fileName) throws Exception {
         // TODO: return the last page of the fileName
     	Metadata metadata = gson.fromJson(json, Metadata.class);
     	Page page = metadata.getFile(fileName).getLastPage();
@@ -205,8 +179,8 @@ public class DFS
     	}
     	return yourBytes;
     }
-    public byte[] head(String fileName) throws Exception
-    {
+    
+    public byte[] head(String fileName) throws Exception {
         // TODO: return the first page of the fileName
     	Metadata metadata = gson.fromJson(json, Metadata.class);
     	Page page = metadata.getFile(fileName).getFirstPage();
@@ -227,9 +201,10 @@ public class DFS
     	}
     	return yourBytes;
     }
-    public void append(String filename, InputStream data) throws Exception
-    {
+
+    public void append(String filename, InputStream data) throws Exception {
         //My comments: 
+        //Instead of data, you can use a file string path 
         //InputStream is from the filestream class! 
         //fileName is the file that you append to your current file (data?)
 
@@ -237,12 +212,6 @@ public class DFS
         // Let guid be the last page in Metadata.filename
         //ChordMessageInterface peer = chord.locateSuccessor(guid);
         //peer.put(guid, data);
-<<<<<<< HEAD
         // Write Metadata        
-=======
-        // Write Metadata
-    	
-        
->>>>>>> 0e8e31d8ed6ecfa88054d50fb6ef799bae73f43f
     }
 }
