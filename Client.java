@@ -11,13 +11,14 @@ public class Client
     /*  Questions:
         1. Do we use the DFS class inside the metadata, metafile, and class pages that we create?
             or do we use the Metadata, metafile, and class pages inside the DFS class?
-        2.      
+        2. How do we get the GUID? we know it is by doing the md5 checksum on the file
+        3.      
     
     */
     DFS dfs;
     public Client(int p) throws Exception {
         dfs = new DFS(p);
-        
+            //Use InputStream classes instead 
             // User interface:
             // join, ls, touch, delete, read, tail, head, append, move
             // call printDFS() 

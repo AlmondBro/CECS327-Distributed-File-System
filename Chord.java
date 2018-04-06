@@ -17,7 +17,6 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
     int nextFinger;
     long guid;   		// GUID (i)
     
-    
     public Boolean isKeyInSemiCloseInterval(long key, long key1, long key2)
     {
        if (key1 < key2)
@@ -52,6 +51,7 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
     public InputStream get(long guidObject) throws RemoteException {
         FileStream file = null;
         try {
+            //May have to use a different. You pass a fileStream into Chord.put();
              file = new FileStream("./"+guid+"/repository/" + guidObject);
         } catch (IOException e)
         {

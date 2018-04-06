@@ -208,6 +208,8 @@ public class DFS
         //InputStream is from the filestream class! 
         //fileName is the file that you append to your current file (data?)
 
+        //use md5 method from the fileStream
+
         // TODO: append data to fileName. If it is needed, add a new page.
         // Let guid be the last page in Metadata.filename
         //ChordMessageInterface peer = chord.locateSuccessor(guid);
