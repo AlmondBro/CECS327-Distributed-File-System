@@ -147,7 +147,7 @@ public class DFS
         // TODO: return the first page of the fileName
         return null;
     }
-    public void append(String filename, Byte[] data) throws Exception
+    public void append(String filename, InputStream) throws Exception
     {
         // TODO: append data to fileName. If it is needed, add a new page.
         // Let guid be the last page in Metadata.filename
