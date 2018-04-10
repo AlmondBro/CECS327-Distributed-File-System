@@ -58,6 +58,9 @@ public class Metadata {
 	}
 
 	public readfromJSON() {
+	
+	}
+	public void deleteFile() {
 		
 	}
 }
