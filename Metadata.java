@@ -26,9 +26,13 @@ public class Metadata {
 		this.metafiles = metafiles;
 	}
 	
-	public void changeName(String newname)
+	public void changeName(String oldName,String newname)
 	{
-		name = newname;
+		for(int i = 0; i < metafiles.size(); i++)
+		{
+			if(metafiles.get(i).getName().equals(oldName))
+				 metafiles.get(i).name = newname;
+		}
 	}
 	public String getFileNames()
 	{
@@ -52,6 +56,14 @@ public class Metadata {
 				return metafiles.get(i);
 		}
 		throw new Exception("A file with that name does not exist!");
+	}
+	public void delete(String fileName)
+	{
+		for(int i = 0; i < metafiles.size(); i++)
+		{
+			if(metafiles.get(i).getName().equals(fileName))
+				 metafiles.remove(i);
+		}
 	}
 	public void toJson() {
 

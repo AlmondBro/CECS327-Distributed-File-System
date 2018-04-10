@@ -119,7 +119,7 @@ public class DFS
         // Write Metadata
         
     	Metadata metadata = gson.fromJson(json, Metadata.class);
-    	metadata.changeName(newName);
+    	metadata.changeName(oldName, newName);
     	json = gson.toJson(metadata);
     }
 
@@ -150,6 +150,9 @@ public class DFS
         //     peer = chord.locateSuccessor(page.guid);
         //     peer.delete(page.guid)
         // delete Metadata.filename
+           Metadata metadata = gson.fromJson(json, Metadata.class);
+           metadata.delete(fileName);
+           json = gson.toJson(metadata);
         // Write Metadata    	
     }
 
