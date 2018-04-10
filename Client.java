@@ -15,8 +15,9 @@ import java.nio.file.*;
     */
 public class Client
 {
-    DFS distributedFileSystem;
-    public Client(int p) throws Exception {
+    private int port;
+    private DFS distributedFileSystem;
+    public Client(int port) throws Exception {
             //Use InputStream classes instead 
             // User interface:
             // join, ls, touch, delete, read, tail, head, append, move
@@ -43,7 +44,11 @@ public class Client
         if (args.length < 1 ) {
             throw new IllegalArgumentException("Please supply a port parameter: <port>");
         }
-        Client client = new Client( Integer.parseInt(args[0]));
-        
+        else if (args.length < 2 ) {
+            throw new IllegalArgumentException("Please two port numbers for two different clients.");
+        }
+
+        Client client1 = new Client( Integer.parseInt(args[0]));
+        Client client2 = new Client(Integer.parseInt(args[1]));
      } 
 }

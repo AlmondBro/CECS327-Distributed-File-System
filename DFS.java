@@ -6,7 +6,7 @@ import java.nio.file.*;
 import java.math.BigInteger;
 import java.security.*;
 // import a json package
-import com.google.gson.*;
+import com.google.gson.Gson;
 
 
 /* JSON Format
