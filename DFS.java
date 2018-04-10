@@ -47,8 +47,7 @@ import com.google.gson.Gson;
 }
  */
 
-public class DFS
-{
+public class DFS {
     int port;
     Chord chord;
     
@@ -141,7 +140,6 @@ public class DFS
     public void touch(String fileName) throws Exception {
         // TODO: Create the file fileName by adding a new entry to the Metadata
         // Write Metadata
-        metadata.createFile();
         
     	Metadata metadata = gson.fromJson(json, Metadata.class);
     	metadata.createFile(fileName);
@@ -157,8 +155,7 @@ public class DFS
         // Write Metadata    	
     }
     
-    public FileStream read(String fileName, int pageNumber) throws Exception
-    {
+    public FileStream read(String fileName, int pageNumber) throws Exception {
         // TODO: read pageNumber from fileName
     	Metadata metadata = gson.fromJson(json, Metadata.class);
     	Page page = metadata.getFile(fileName).getPage(pageNumber);

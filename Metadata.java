@@ -18,7 +18,7 @@ public class Metadata {
 
 public class Metadata {
 	private String name;
-	private ArrayList<Metafile> metafiles; 
+	private ArrayList<MetaFile> metafiles; 
 	
 	public Metadata(String name, ArrayList<MetaFile> metafiles)
 	{
@@ -57,7 +57,7 @@ public class Metadata {
 
 	}
 
-	public readfromJSON() {
+	public void readfromJSON() {
 	
 	}
 	public void deleteFile() {

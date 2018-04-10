@@ -76,7 +76,7 @@ public class UserInterface {
         System.out.println("To quit, enter 8:\t");
     } //end getCommandLineInterface()
 
-    public void makingSelection() {
+    public void makingSelection() throws Exception {
         boolean flag = true;
         String fileName;
         while(flag) {
@@ -150,7 +150,6 @@ public class UserInterface {
                     System.out.println("Exiting...see you later alligator!");
                     flag = false;
                     break;
-                    return;
 
                 default:
                     break;

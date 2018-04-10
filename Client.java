@@ -31,7 +31,7 @@ public class Client
              */
         //distributedFileSystem.join(Ip, port);
 
-        distributedFileSystem = new DFS(p);
+        distributedFileSystem = new DFS(port);
         UserInterface userInterface = new UserInterface(distributedFileSystem);
 
         userInterface.welcomeMessage();
@@ -49,6 +49,10 @@ public class Client
             throw new IllegalArgumentException("Please two port numbers for two different clients.");
         }
 
+        /* 
+            To compile, run:
+                javac -cp gson-2.8.2.jar Client.java Chord.java ChordMessageInterface.java DFS.java Metadata.java MetaFile.java Page.java UserInterface.java FileStream.java
+        */
         Client client1 = new Client( Integer.parseInt(args[0]));
         Client client2 = new Client(Integer.parseInt(args[1]));
      } 
