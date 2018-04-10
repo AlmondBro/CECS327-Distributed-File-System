@@ -1,14 +1,14 @@
 import java.util.Scanner;
 public class UserInterface {
 
-    private Scannner userInput;
+    private Scanner userInput;
     private int userSelectionValue;
     private String IP_Address;
     private int port;
     private DFS distributedFileSystem;
 
     public UserInterface(DFS distributedFileSystem) {
-        userInput = new Scanner();
+        userInput = new Scanner(System.in);
         this.distributedFileSystem = distributedFileSystem;
     } //end UserInterface() constructor
 
@@ -40,6 +40,9 @@ public class UserInterface {
         this.port = newPort;
     }
 
+    public void setUserSelectionValue(int newUserSelectionValue) {
+        this.userSelectionValue = newUserSelectionValue;
+    }
 
     public void welcomeMessage() {
           //Use InputStream classes instead 
@@ -48,7 +51,7 @@ public class UserInterface {
     }
 
     public void connectToDFS() {
-        if (x == 0) {
+        if (this.getUserSelectionValue() == 0) {
             System.out.println("Please enter an IP Address:\t");
             String IP_address = this.getScanner().nextLine();
             this.setIPAddress(IP_address);
@@ -78,9 +81,10 @@ public class UserInterface {
         String fileName;
         while(flag) {
             this.getCommandLineInterface();
-            int userChoice = this.getScanner().nextInt; 
+            int userChoice = this.getScanner().nextInt(); 
+            setUserSelectionValue(userChoice);
 
-            switch(userChoice) {
+            switch(this.getUserSelectionValue()) {
                 case 1:
                     String fileList = this.getDFS().ls();
                     System.out.println("The list of files are "+ fileList);
@@ -129,7 +133,6 @@ public class UserInterface {
             //   int pageNum =  this.getScanner().nextInt();
                 // System.out.println("You enter the page number: "+ pageNum);
                 //  dfs.append(fileName, pageNum);
-                    system.out.println(""); 
                     break;
 
                 case 7:

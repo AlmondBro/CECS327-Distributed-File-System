@@ -30,7 +30,7 @@ public class Client
         //distributedFileSystem.join(Ip, port);
 
         distributedFileSystem = new DFS(p);
-        userInterface = new UserInterface(distributedFileSystem);
+        UserInterface userInterface = new UserInterface(distributedFileSystem);
 
         userInterface.welcomeMessage();
         userInterface.connectToDFS();
