@@ -38,4 +38,8 @@ public class Metadata {
 		}
 		throw new Exception("A file with that name does not exist!");
 	}
+	public void deleteFile()
+	{
+		
+	}
 }

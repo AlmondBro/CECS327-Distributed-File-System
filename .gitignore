@@ -1,0 +1,13 @@
+
+1/.classpath
+1/.project
+*.prefs
+1/pom.xml
+1/src/main/resources/archetype-resources/pom.xml
+1/src/main/resources/archetype-resources/src/main/java/App.java
+1/src/main/resources/archetype-resources/src/test/java/AppTest.java
+1/src/main/resources/META-INF/maven/archetype.xml
+1/target/classes/archetype-resources/pom.xml
+1/target/classes/archetype-resources/src/main/java/App.java
+1/target/classes/archetype-resources/src/test/java/AppTest.java
+1/target/classes/META-INF/maven/archetype.xml

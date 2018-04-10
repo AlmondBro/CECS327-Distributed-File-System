@@ -28,6 +28,10 @@ public class MetaFile {
 		else
 			return pages.get(pageNum);
 	}
+	public void addPage(Page page)
+	{
+		pages.add(page);
+	}
 	public Page getLastPage()
 	{
 		return pages.get(pages.size() - 1);

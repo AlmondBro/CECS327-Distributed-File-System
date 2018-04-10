@@ -50,8 +50,11 @@ public class DFS
 {
     int port;
     Chord chord;
+    
     private Gson gson;
     private String json;
+    private FileStream filestream;
+    private Metadata metadata;
     
     private long md5(String objectName)
     {
@@ -76,11 +79,12 @@ public class DFS
     public DFS(int port) throws Exception
     {
         gson = new Gson();
+        filestream = new FileStream();
         
         //ArrayList<Page> pages = new ArrayList<Page>();
         //MetaFile file = new MetaFile("New-name", 0, 0, 0, pages);
         ArrayList<MetaFile> files = new ArrayList<MetaFile>();
-        Metadata metadata = new Metadata("New-name", files);
+        metadata = new Metadata("New-name", files);
         
         json = gson.toJson(metadata);
         
@@ -182,6 +186,7 @@ public class DFS
     	  }
     	}
     	
+    	// TODO: return filestream
         return yourBytes;
     }
     
@@ -214,7 +219,7 @@ public class DFS
     	Metadata metadata = gson.fromJson(json, Metadata.class);
     	Page page = metadata.getFile(fileName).getFirstPage();
     	
-    	ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    	/*ByteArrayOutputStream bos = new ByteArrayOutputStream();
     	ObjectOutput out = null;
     	byte[] yourBytes;
     	try {
@@ -227,10 +232,12 @@ public class DFS
     	    bos.close();
     	  } catch (IOException ex) {
     	  }
-    	}
+    	}*/
+    	
+    	// TODO: Return filestream
     	return yourBytes;
     }
-    public void append(String filename, Byte[] data) throws Exception
+    public void append(String filename, String filepath) throws Exception
     {
         // TODO: append data to fileName. If it is needed, add a new page.
         // Let guid be the last page in Metadata.filename
@@ -238,7 +245,21 @@ public class DFS
         //peer.put(guid, data);
         // Write Metadata
     	
+    	// Get the file's size
+    	File file = new File(filepath);
+    	long fileSpace = file.getTotalSpace();
+    	
+    	// md5 the file
+    	long guid = md5(filename);
+    	
+    	// store the data into a page
+    	Page page = new Page(metadata.getFile(filename).getLastPage().getNumber() + 1, guid, fileSpace);
+    	
+    	// put the page into the metadata
+    	metadata.getFile(filename).addPage(page);
         
+    	// TODO: update the file
+    	
     }
     
 }

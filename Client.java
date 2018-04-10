@@ -5,6 +5,7 @@ import java.io.*;
 import java.math.BigInteger;
 import java.security.*;
 import java.nio.file.*;
+import com.google.gson.*;
 
 
 public class Client
@@ -19,10 +20,13 @@ public class Client
     
     static public void main(String args[]) throws Exception
     {
-        if (args.length < 1 ) {
+        /*if (args.length < 1 ) {
             throw new IllegalArgumentException("Parameter: <port>");
         }
         Client client=new Client( Integer.parseInt(args[0]));
         
+        DFS dfs = new DFS(1);
+        dfs.mv("aa", "bb");*/
+    	DFS dfs = new DFS(1);
      } 
 }
