@@ -29,15 +29,13 @@ public class FileStream extends InputStream implements Serializable {
       currentPosition = 0;	  
     }
     
-    public int read() throws IOException
-    {
+    public int read() throws IOException {
  	    if (currentPosition < size) {
         return (int)byteBuffer[currentPosition++];
       }
+      return 0;
     }
- 	    return 0;
-    }
-    
+ 	        
     public int available() throws IOException
     {
 	    return size - currentPosition;
