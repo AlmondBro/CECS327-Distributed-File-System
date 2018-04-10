@@ -165,77 +165,49 @@ public class DFS
         
     }
     
-    public byte[] read(String fileName, int pageNumber) throws Exception
+    public FileStream read(String fileName, int pageNumber) throws Exception
     {
         // TODO: read pageNumber from fileName
     	Metadata metadata = gson.fromJson(json, Metadata.class);
     	Page page = metadata.getFile(fileName).getPage(pageNumber);
     	
-    	ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    	ObjectOutput out = null;
-    	byte[] yourBytes;
-    	try {
-    	  out = new ObjectOutputStream(bos);   
-    	  out.writeObject(page);
-    	  out.flush();
-    	  yourBytes = bos.toByteArray();
-    	} finally {
-    	  try {
-    	    bos.close();
-    	  } catch (IOException ex) {
-    	  }
-    	}
+    	String filepath = fileName + ".txt";
+    	PrintWriter writer = new PrintWriter(filepath, "UTF-8");
+    	writer.println(page);
+    	writer.close();
     	
-    	// TODO: return filestream
-        return yourBytes;
+    	FileStream inputstream = new FileStream(filepath);
+    	return inputstream;
     }
     
     
-    public byte[] tail(String fileName) throws Exception
+    public FileStream tail(String fileName) throws Exception
     {
         // TODO: return the last page of the fileName
     	Metadata metadata = gson.fromJson(json, Metadata.class);
     	Page page = metadata.getFile(fileName).getLastPage();
     	
-    	ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    	ObjectOutput out = null;
-    	byte[] yourBytes;
-    	try {
-    	  out = new ObjectOutputStream(bos);   
-    	  out.writeObject(page);
-    	  out.flush();
-    	  yourBytes = bos.toByteArray();
-    	} finally {
-    	  try {
-    	    bos.close();
-    	  } catch (IOException ex) {
-    	  }
-    	}
-    	return yourBytes;
+    	String filepath = fileName + ".txt";
+    	PrintWriter writer = new PrintWriter(filepath, "UTF-8");
+    	writer.println(page);
+    	writer.close();
+    	
+    	FileStream inputstream = new FileStream(filepath);
+    	return inputstream;
     }
-    public byte[] head(String fileName) throws Exception
+    public FileStream head(String fileName) throws Exception
     {
         // TODO: return the first page of the fileName
     	Metadata metadata = gson.fromJson(json, Metadata.class);
     	Page page = metadata.getFile(fileName).getFirstPage();
     	
-    	/*ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    	ObjectOutput out = null;
-    	byte[] yourBytes;
-    	try {
-    	  out = new ObjectOutputStream(bos);   
-    	  out.writeObject(page);
-    	  out.flush();
-    	  yourBytes = bos.toByteArray();
-    	} finally {
-    	  try {
-    	    bos.close();
-    	  } catch (IOException ex) {
-    	  }
-    	}*/
+    	String filepath = fileName + ".txt";
+    	PrintWriter writer = new PrintWriter(filepath, "UTF-8");
+    	writer.println(page);
+    	writer.close();
     	
-    	// TODO: Return filestream
-    	return yourBytes;
+    	FileStream inputstream = new FileStream(filepath);
+    	return inputstream;
     }
     public void append(String filename, String filepath) throws Exception
     {
@@ -257,8 +229,18 @@ public class DFS
     	
     	// put the page into the metadata
     	metadata.getFile(filename).addPage(page);
+    	
+    	// Write the file to disk
+    	String newFilepath = filename + ".txt";
+    	PrintWriter writer = new PrintWriter(newFilepath, "UTF-8");
+    	writer.println(page);
+    	writer.close();
+    	
+    	FileStream inputstream = new FileStream(newFilepath);
         
     	// TODO: update the file
+    	ChordMessageInterface peer = chord.locateSuccessor(guid);
+        peer.put(guid, inputstream);
     	
     }
     
