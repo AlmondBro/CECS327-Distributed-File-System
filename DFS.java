@@ -230,6 +230,5 @@ public class DFS {
     	// TODO: update the file
     	ChordMessageInterface peer = chord.locateSuccessor(guid);
         peer.put(guid, inputstream);
-    	
     }
 }

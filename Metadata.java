@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /*
 public class Metadata {
     private ArrayList<Metafile> metafiles; 
@@ -15,7 +13,7 @@ public class Metadata {
         
     }
 } */
-
+import java.util.ArrayList;
 public class Metadata {
 	private String name;
 	private ArrayList<MetaFile> metafiles; 

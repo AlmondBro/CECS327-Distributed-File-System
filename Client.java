@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import java.security.*;
 import java.nio.file.*;
 import com.google.gson.*;
+import com.google.gson.Gson;
 
 /*  Questions:
         1. Do we use the DFS class inside the metadata, metafile, and class pages that we create?
