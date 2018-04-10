@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /*
 public class Metadata {
     private ArrayList<Metafile> metafiles; 
@@ -15,10 +13,10 @@ public class Metadata {
         
     }
 } */
-
+import java.util.ArrayList;
 public class Metadata {
 	private String name;
-	private ArrayList<Metafile> metafiles; 
+	private ArrayList<MetaFile> metafiles; 
 	
 	public Metadata(String name, ArrayList<MetaFile> metafiles)
 	{
@@ -69,7 +67,10 @@ public class Metadata {
 
 	}
 
-	public readfromJSON() {
+	public void readfromJSON() {
+	
+	}
+	public void deleteFile() {
 		
 	}
 }

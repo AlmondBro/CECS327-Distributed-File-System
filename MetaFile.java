@@ -21,6 +21,17 @@ public class MetaFile {
 	{
 		return name;
 	}
+	public Page getPage(int pageNum) throws Exception
+	{
+		if(pageNum > pages.size() + 1)
+			throw new Exception("Page number does not exist!");
+		else
+			return pages.get(pageNum);
+	}
+	public void addPage(Page page)
+	{
+		pages.add(page);
+	}
 	public Page getLastPage()
 	{
 		return pages.get(pages.size() - 1);
