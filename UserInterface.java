@@ -118,7 +118,7 @@ public class UserInterface {
                     break;
 
                 case 5:
-                    System.oudfst.println("Please enter the file name");
+                    System.out.println("Please enter the file name");
                     fileName = this.getScanner().nextLine();
                     System.out.println("You enter the file name:" + fileName);
                     this.getDFS().tail(fileName);

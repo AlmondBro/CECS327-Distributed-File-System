@@ -41,7 +41,7 @@ public class Client
     static public void main(String args[]) throws Exception
     {
         if (args.length < 1 ) {
-            throw new IllegalArgumentException("Parameter: <port>");
+            throw new IllegalArgumentException("Please supply a port parameter: <port>");
         }
         Client client = new Client( Integer.parseInt(args[0]));
         
