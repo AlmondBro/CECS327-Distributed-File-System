@@ -51,14 +51,15 @@ public class UserInterface {
     }
 
     public void connectToDFS() throws Exception {
-
+        Scanner user_input = new Scanner(System.in);
+        
         if (this.getUserSelectionValue() == 0) {
             System.out.println("Please enter an IP Address:\t");
-            String IP_address = this.getScanner().nextLine();
+            String IP_address = user_input.nextLine();
             this.setIPAddress(IP_address);
 
             System.out.println("Please enter a port number");
-            int port = this.getScanner().nextInt();
+            int port = user_input.nextInt();
             this.setPort(port);
 
             System.out.println("Connecting you to the distributed file system.");
@@ -79,11 +80,12 @@ public class UserInterface {
     } //end getCommandLineInterface()
 
     public void makingSelection() throws Exception {
+        Scanner user_input = new Scanner(System.in);
         boolean flag = true;
         String fileName;
         while(flag) {
             this.getCommandLineInterface();
-            int userChoice = this.getScanner().nextInt(); 
+            int userChoice = user_input.nextInt(); 
             setUserSelectionValue(userChoice);
 
             switch(this.getUserSelectionValue()) {
@@ -94,14 +96,14 @@ public class UserInterface {
                     
                 case 2:
                     System.out.println("Please enter the file name");
-                    fileName = this.getScanner().nextLine();
+                    fileName = user_input.nextLine();
                     System.out.println("You enter the file name:" + fileName);
                     this.getDFS().touch(fileName);
                     break;
 
                 case 3:
                     System.out.println("Please enter the file name");
-                    fileName = this.getScanner().nextLine();
+                    fileName = user_input.nextLine();
                     
                     System.out.println("You entered the file name:" + fileName);
                     this.getDFS().delete(fileName);
@@ -109,41 +111,41 @@ public class UserInterface {
 
                 case 4:
                     System.out.println("Please enter the file name");
-                    fileName = this.getScanner().nextLine();
+                    fileName = user_input.nextLine();
 
                     System.out.println("You entered the file name:" + fileName);
                     System.out.println("Please enter the page number");
                     
-                    int pageNum = this.getScanner().nextInt();
+                    int pageNum = user_input.nextInt();
                     System.out.println("You enter the page number: "+ pageNum);
                     this.getDFS().read(fileName, pageNum);
                     break;
 
                 case 5:
                     System.out.println("Please enter the file name");
-                    fileName = this.getScanner().nextLine();
+                    fileName = user_input.nextLine();
                     System.out.println("You enter the file name:" + fileName);
                     this.getDFS().tail(fileName);
                     break;
 
                 case 6:
                     System.out.println("Please enter the file name");
-                    fileName =  this.getScanner().nextLine();
+                    fileName =  user_input.nextLine();
                     System.out.println("You enter the file name:" + fileName);
                 // don't remember what the second agrument is about for append
                 //  System.out.println("Please enter the page number");
-            //   int pageNum =  this.getScanner().nextInt();
+            //   int pageNum =  user_input.nextInt();
                 // System.out.println("You enter the page number: "+ pageNum);
                 //  dfs.append(fileName, pageNum);
                     break;
 
                 case 7:
                     System.out.println("Please enter the file name");
-                    fileName =  this.getScanner().nextLine();
+                    fileName =  user_input.nextLine();
                     System.out.println("You enter the file name:" + fileName);
 
                     System.out.println("Please enter the new file name");
-                    String fileName2 = this.getScanner().nextLine();
+                    String fileName2 = user_input.nextLine();
                     System.out.println("You enter the new file name" + fileName2);
                     this.getDFS().mv(fileName, fileName2);
                     break;
