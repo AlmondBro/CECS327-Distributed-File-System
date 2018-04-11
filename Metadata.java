@@ -24,12 +24,14 @@ public class Metadata {
 		this.metafiles = metafiles;
 	}
 	
-	public void changeName(String oldName,String newname)
+	public void changeName(String oldName, String newName)
 	{
 		for(int i = 0; i < metafiles.size(); i++)
 		{
-			if(metafiles.get(i).getName().equals(oldName))
-				 metafiles.get(i).name = newname;
+			if(metafiles.get(i).getName().equals(oldName)) {
+				metafiles.get(i).setName(newName);
+			}
+				
 		}
 	}
 	public String getFileNames()
@@ -69,8 +71,5 @@ public class Metadata {
 
 	public void readfromJSON() {
 	
-	}
-	public void deleteFile() {
-		
 	}
 }

@@ -21,6 +21,11 @@ public class MetaFile {
 	{
 		return name;
 	}
+
+	public void setName(String newName) {
+		this.name = newName;
+	}
+
 	public Page getPage(int pageNum) throws Exception
 	{
 		if(pageNum > pages.size() + 1)

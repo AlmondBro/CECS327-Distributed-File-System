@@ -46,15 +46,15 @@ public class Client
         if (args.length < 1 ) {
             throw new IllegalArgumentException("Please supply a port parameter: <port>");
         }
-        else if (args.length < 2 ) {
+        /*else if (args.length < 2 ) {
             throw new IllegalArgumentException("Please two port numbers for two different clients.");
-        }
+        } */
 
         /* 
             To compile, run:
                 javac -cp gson-2.8.2.jar Client.java Chord.java ChordMessageInterface.java DFS.java Metadata.java MetaFile.java Page.java UserInterface.java FileStream.java
         */
         Client client1 = new Client( Integer.parseInt(args[0]));
-        Client client2 = new Client(Integer.parseInt(args[1]));
+        //Client client2 = new Client(Integer.parseInt(args[1]));
      } 
 }
