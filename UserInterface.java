@@ -61,6 +61,7 @@ public class UserInterface {
             this.setPort(port);
 
             System.out.println("Connecting you to the distributed file system.");
+            distributedFileSystem.join(this.getIPAddress(), this.getPort());            
         }
     }
 
