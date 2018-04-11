@@ -86,6 +86,11 @@ public class UserInterface {
         String fileName;
 
         while(flag = true) {
+            /* try {
+
+            } catch (NumberFormatException e) {
+
+            } */
             this.getCommandLineInterface();
 
             int userChoice = Integer.parseInt(user_input.nextLine()); 
