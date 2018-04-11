@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
 public class UserInterface {
 
     private Scanner userInput;
@@ -46,15 +47,15 @@ public class UserInterface {
 
     public void welcomeMessage() {
           //Use InputStream classes instead 
-          System.out.println("Welcome");
-          System.out.println("To join the file distributed system please enter yes: ");
+          System.out.println("\nWelcome");
+          System.out.println("To join the distributed file system.");
     }
 
-    public void connectToDFS() throws Exception {
+    public void connectToDFS() throws InputMismatchException, Exception {
         Scanner user_input = new Scanner(System.in);
-        
+
         if (this.getUserSelectionValue() == 0) {
-            System.out.println("Please enter an IP Address:\t");
+            System.out.println("\nPlease enter an IP Address:\t");
             String IP_address = user_input.nextLine();
             this.setIPAddress(IP_address);
 
@@ -64,12 +65,12 @@ public class UserInterface {
 
             System.out.println("Connecting you to the distributed file system.");
             this.getDFS().join(this.getIPAddress(), this.getPort());            
-        }
-    }
+        } //end if-statement
+    } //end 
 
     public void getCommandLineInterface() {
         System.out.println("\nPlease make a selection");
-        System.out.println("To ls (list the files) enter: 1:\t");
+        System.out.println("To ls (list the files) enter 1:\t");
         System.out.println("To touch (create a file) enter 2:\t");
         System.out.println("To delete enter 3:\t");
         System.out.println("To read enter 4:\t");
@@ -83,22 +84,26 @@ public class UserInterface {
         Scanner user_input = new Scanner(System.in);
         boolean flag = true;
         String fileName;
-        while(flag) {
+
+        while(flag = true) {
             this.getCommandLineInterface();
-            int userChoice = user_input.nextInt(); 
+
+            int userChoice = Integer.parseInt(user_input.nextLine()); 
             setUserSelectionValue(userChoice);
 
             switch(this.getUserSelectionValue()) {
                 case 1:
                     String fileList = this.getDFS().ls();
                     System.out.println("The list of files are "+ fileList);
+                    //user_input.close();
                     break;
                     
                 case 2:
-                    System.out.println("Please enter the file name");
+                    System.out.println("Please enter the file name:\t");
                     fileName = user_input.nextLine();
-                    System.out.println("You enter the file name:" + fileName);
+                    System.out.println("You entered the file name:" + fileName);
                     this.getDFS().touch(fileName);
+                    //user_input.close();
                     break;
 
                 case 3:
@@ -107,6 +112,7 @@ public class UserInterface {
                     
                     System.out.println("You entered the file name:" + fileName);
                     this.getDFS().delete(fileName);
+                    //user_input.close();
                     break;
 
                 case 4:
@@ -119,6 +125,7 @@ public class UserInterface {
                     int pageNum = user_input.nextInt();
                     System.out.println("You enter the page number: "+ pageNum);
                     this.getDFS().read(fileName, pageNum);
+                    //user_input.close();
                     break;
 
                 case 5:
@@ -126,18 +133,20 @@ public class UserInterface {
                     fileName = user_input.nextLine();
                     System.out.println("You enter the file name:" + fileName);
                     this.getDFS().tail(fileName);
+                    //user_input.close();
                     break;
 
                 case 6:
                     System.out.println("Please enter the file name");
                     fileName =  user_input.nextLine();
                     System.out.println("You enter the file name:" + fileName);
-                // don't remember what the second agrument is about for append
+                    break;
+                       // don't remember what the second agrument is about for append
                 //  System.out.println("Please enter the page number");
             //   int pageNum =  user_input.nextInt();
                 // System.out.println("You enter the page number: "+ pageNum);
                 //  dfs.append(fileName, pageNum);
-                    break;
+                    //user_input.close();
 
                 case 7:
                     System.out.println("Please enter the file name");
@@ -148,17 +157,30 @@ public class UserInterface {
                     String fileName2 = user_input.nextLine();
                     System.out.println("You enter the new file name" + fileName2);
                     this.getDFS().mv(fileName, fileName2);
+                    //user_input.close();
                     break;
                     
                 case 8:
-                    System.out.println("Exiting...see you later alligator!");
+                    System.out.println("\nExiting...see you later alligator!");
                     flag = false;
+                    //user_input.close();
                     break;
 
                 default:
                     break;
             } //ends switch statement
+            //user_input.close();
+            if (flag == false) {
+                return;
+            }
+          /* try {
+        
+            } catch (InputMismatchException inputMismatch) {
+                System.err.println("\nPlease enter a number for your selection choice.");
+            }  */
+            
         } //ends while (implement way to quit while)
+  
     } //end makingSelection() method
   
 } //end UserInterface() class
