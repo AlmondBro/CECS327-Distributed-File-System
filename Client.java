@@ -52,7 +52,7 @@ public class Client
 
         /* 
             To compile, run:
-                javac -cp gson-2.8.2.jar Client.java Chord.java ChordMessageInterface.java DFS.java Metadata.java MetaFile.java Page.java UserInterface.java FileStream.java
+                javac -cp gson-2.8.2.jar Client.java Chord.java ChordMessageInterface.java DFS.java Metadata.java MetaFile.java Page.java UserInterface.java FileStream.java; java -classpath ".:gson-2.8.2.jar" Client 3000
         */
         Client client1 = new Client( Integer.parseInt(args[0]));
         //Client client2 = new Client(Integer.parseInt(args[1]));

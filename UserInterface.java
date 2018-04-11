@@ -51,6 +51,7 @@ public class UserInterface {
     }
 
     public void connectToDFS() throws Exception {
+
         if (this.getUserSelectionValue() == 0) {
             System.out.println("Please enter an IP Address:\t");
             String IP_address = this.getScanner().nextLine();
@@ -66,7 +67,7 @@ public class UserInterface {
     }
 
     public void getCommandLineInterface() {
-        System.out.println("Please make a selection");
+        System.out.println("\nPlease make a selection");
         System.out.println("To ls (list the files) enter: 1:\t");
         System.out.println("To touch (create a file) enter 2:\t");
         System.out.println("To delete enter 3:\t");
@@ -142,7 +143,7 @@ public class UserInterface {
                     System.out.println("You enter the file name:" + fileName);
 
                     System.out.println("Please enter the new file name");
-                    String fileName2 =  this.getScanner().nextLine();
+                    String fileName2 = this.getScanner().nextLine();
                     System.out.println("You enter the new file name" + fileName2);
                     this.getDFS().mv(fileName, fileName2);
                     break;
