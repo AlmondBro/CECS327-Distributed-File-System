@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-
-
 public class MetaFile {
 	private String name;
 	private int numberOfPages;

@@ -76,13 +76,10 @@ public class DFS {
         gson = new Gson();
         filestream = new FileStream();
         
-        //ArrayList<Page> pages = new ArrayList<Page>();
-        //MetaFile file = new MetaFile("New-name", 0, 0, 0, pages);
         ArrayList<MetaFile> files = new ArrayList<MetaFile>();
         metadata = new Metadata("New-name", files);
         listOfFiles = "";
 
-        
         json = gson.toJson(metadata);
         
         System.out.println("\nMetadata JSON object (upon creating DFS object):\n\n"+json+"\n");
@@ -101,8 +98,8 @@ public class DFS {
         this.listOfFiles.concat(stringToConcatenate);
     }   
 
-    public void join(String Ip, int port) throws Exception {
-        chord.joinRing(Ip, port);
+    public void join(String ip, int port) throws Exception {
+        chord.joinRing(ip, port);
         chord.Print();
     }
     
@@ -116,14 +113,30 @@ public class DFS {
         return jsonParser;
     }
     
-    public void writeMetaData(InputStream stream) throws Exception
-    {
+    public void writeMetaData(InputStream stream) throws Exception {
         JsonParser jsonParser _ null;
         long guid = md5("Metadata");
         ChordMessageInterface peer = chord.locateSuccessor(guid);
         peer.put(guid, stream);
     }
    */
+
+    public void writeMetaData(FileStream stream) throws Exception {
+        //JsonParser jsonParser _null;
+        long guid = md5(stream.getFile().getName());
+        ChordMessageInterface peer = chord.locateSuccessor(guid);
+        peer.put(guid, stream);
+    }
+
+    public String ls() throws Exception {
+       // TODO: returns all the files in the Metadata
+        
+        Metadata metadata = gson.fromJson(json, Metadata.class);
+    	//listOfFiles = metadata.getFileNames();
+        setStringOfFiles(metadata.getFileNames());
+        return this.getStringOfFiles();
+    }
+    
     public void mv(String oldName, String newName) throws Exception {
         // TODO:  Change the name in Metadata
         // Write Metadata
@@ -133,22 +146,18 @@ public class DFS {
     	json = gson.toJson(metadata);
     }
 
-    public String ls() throws Exception {
-       // TODO: returns all the files in the Metadata
-       // JsonParser jp = readMetaData();
-        
-        Metadata metadata = gson.fromJson(json, Metadata.class);
-    	//listOfFiles = metadata.getFileNames();
-        setStringOfFiles(metadata.getFileNames());
-        return this.getStringOfFiles();
-    }
-    
     public void touch(String fileName) throws Exception {
         // TODO: Create the file fileName by adding a new entry to the Metadata
         // Write Metadata
+        File newFile = new File(fileName);
+        fileStream(newFile.getAbsolutePath());
+        filestream.setFile(newFile);
+        //filestream.setPath(fileName);
+
+        metadata.createFile(fileName);
+        metadata = gson.fromJson(json, Metadata.class);
         
-    	Metadata metadata = gson.fromJson(json, Metadata.class);
-    	metadata.createFile(fileName);
+        writeMetaData(filestream);
     	json = gson.toJson(metadata);
     }
     

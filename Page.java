@@ -12,6 +12,14 @@ public class Page {
 	
 	public int getNumber()
 	{
-		return number;
+		return this.number;
+	}
+
+	public long getGUID() {
+		return this.guid;
+	}
+
+	public long getSize() {
+		return this.getSize();
 	}
 }

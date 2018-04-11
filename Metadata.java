@@ -14,6 +14,8 @@ public class Metadata {
     }
 } */
 import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.IOException;;
 public class Metadata {
 	private String name;
 	private ArrayList<MetaFile> metafiles; 
@@ -43,13 +45,18 @@ public class Metadata {
 		}
 		return fileNames;
 	}
-	public void createFile(String fileName)
-	{
+	
+	public void createFile(String fileName) throws FileNotFoundException, IOException {
 		ArrayList<Page> pages = new ArrayList<Page>();
-        MetaFile file = new MetaFile(fileName, 0, 0, 0, pages);
+		File new_File = new File(fileName);
+		FileStream fileStream = new FileStream(fileName);
+		fileStream.setFile(new_File);
+		//(String name, int numberOfPages, int pageSize, int size, ArrayList<Page> pages)
+		MetaFile newFile = new MetaFile(fileStream.getFile().getPath(), 0, 0, fileStream.getSize(), pages);
+		//metafiles.add(newFile);
 	}
-	public MetaFile getFile(String fileName) throws Exception
-	{
+
+	public MetaFile getFile(String fileName) throws Exception {
 		for(int i = 0; i < metafiles.size(); i++)
 		{
 			if(metafiles.get(i).getName().equals(fileName))
@@ -57,6 +64,7 @@ public class Metadata {
 		}
 		throw new Exception("A file with that name does not exist!");
 	}
+
 	public void delete(String fileName)
 	{
 		for(int i = 0; i < metafiles.size(); i++)
