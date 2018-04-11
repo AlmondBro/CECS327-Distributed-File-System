@@ -50,7 +50,7 @@ public class UserInterface {
           System.out.println("To join the file distributed system please enter yes: ");
     }
 
-    public void connectToDFS() {
+    public void connectToDFS() throws Exception {
         if (this.getUserSelectionValue() == 0) {
             System.out.println("Please enter an IP Address:\t");
             String IP_address = this.getScanner().nextLine();
@@ -61,7 +61,7 @@ public class UserInterface {
             this.setPort(port);
 
             System.out.println("Connecting you to the distributed file system.");
-            distributedFileSystem.join(this.getIPAddress(), this.getPort());            
+            this.getDFS().join(this.getIPAddress(), this.getPort());            
         }
     }
 
