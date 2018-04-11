@@ -55,24 +55,21 @@ public class DFS {
     private String json;
     private FileStream filestream;
     private Metadata metadata;
+    private String listOfFiles;
     
-    private long md5(String objectName)
-    {
-        try
-        {
+    private long md5(String objectName) {
+        try {
             MessageDigest m = MessageDigest.getInstance("MD5");
             m.reset();
             m.update(objectName.getBytes());
             BigInteger bigInt = new BigInteger(1,m.digest());
             return Math.abs(bigInt.longValue());
-        }
-        catch(NoSuchAlgorithmException e)
-        {
+        } catch(NoSuchAlgorithmException e) {
                 e.printStackTrace();
                 
         }
         return 0;
-    }
+    } //end md5() method
     
     public DFS(int port) throws Exception
     {
@@ -83,16 +80,26 @@ public class DFS {
         //MetaFile file = new MetaFile("New-name", 0, 0, 0, pages);
         ArrayList<MetaFile> files = new ArrayList<MetaFile>();
         metadata = new Metadata("New-name", files);
+        listOfFiles = "";
+
         
         json = gson.toJson(metadata);
         
-        System.out.println(json);
+        System.out.println("\nMetadata JSON object (upon creating DFS object):\n\n"+json+"\n");
         
         this.port = port;
         long guid = md5("" + port);
         chord = new Chord(port, guid);
         Files.createDirectories(Paths.get(guid+"/repository"));
     }
+
+    public String getStringOfFiles() {
+        return this.listOfFiles;
+    }
+
+    public void setStringOfFiles(String stringToConcatenate) {
+        this.listOfFiles.concat(stringToConcatenate);
+    }   
 
     public void join(String Ip, int port) throws Exception {
         chord.joinRing(Ip, port);
@@ -127,14 +134,13 @@ public class DFS {
     }
 
     public String ls() throws Exception {
-        String listOfFiles = "";
        // TODO: returns all the files in the Metadata
        // JsonParser jp = readMetaData();
         
         Metadata metadata = gson.fromJson(json, Metadata.class);
-    	listOfFiles = metadata.getFileNames();
-        
-        return listOfFiles;
+    	//listOfFiles = metadata.getFileNames();
+        setStringOfFiles(metadata.getFileNames());
+        return this.getStringOfFiles();
     }
     
     public void touch(String fileName) throws Exception {
