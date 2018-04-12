@@ -21,10 +21,10 @@ public class Client
     private DFS distributedFileSystem;
     public Client(int port) throws Exception {
             //Use InputStream classes instead 
-
-            
+            // User interface:
+            // join, ls, touch, delete, read, tail, head, append, move
             // call printDFS() 
-
+            // ask user to give a name to the file
 
             /* 
                 1. Run 3 clients
@@ -46,15 +46,15 @@ public class Client
         if (args.length < 1 ) {
             throw new IllegalArgumentException("Please supply a port parameter: <port>");
         }
-        /*else if (args.length < 2 ) {
+        else if (args.length < 2 ) {
             throw new IllegalArgumentException("Please two port numbers for two different clients.");
-        } */
+        }
 
         /* 
             To compile, run:
-                javac -cp gson-2.8.2.jar Client.java Chord.java ChordMessageInterface.java DFS.java Metadata.java MetaFile.java Page.java UserInterface.java FileStream.java; java -classpath ".:gson-2.8.2.jar" Client 3000
+                javac -cp gson-2.8.2.jar Client.java Chord.java ChordMessageInterface.java DFS.java Metadata.java MetaFile.java Page.java UserInterface.java FileStream.java
         */
         Client client1 = new Client( Integer.parseInt(args[0]));
-        //Client client2 = new Client(Integer.parseInt(args[1]));
+        Client client2 = new Client(Integer.parseInt(args[1]));
      } 
 }
