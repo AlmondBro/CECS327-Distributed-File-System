@@ -288,7 +288,7 @@ public class DFS {
     	
     	FileStream inputstream = new FileStream(newFilepath);
         
-    	// TODO: update the file
+    	// update the file in the "cloud"
     	ChordMessageInterface peer = chord.locateSuccessor(guid);
         peer.put(guid, inputstream);
     }

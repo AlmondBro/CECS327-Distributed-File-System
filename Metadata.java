@@ -47,7 +47,7 @@ public class Metadata {
 		String fileNames = "";
 		for(int i = 0; i < metafiles.size(); i++)
 		{
-			fileNames.concat(metafiles.get(i).getName());
+			fileNames += metafiles.get(i).getName();
 		}
 		return fileNames;
 	}
@@ -59,6 +59,7 @@ public class Metadata {
 	{
 		ArrayList<Page> pages = new ArrayList<Page>();
         MetaFile file = new MetaFile(fileName, 0, 0, 0, pages);
+        metafiles.add(file);
 	}
 	/**
 	 * Returns a specific file using the filename inputted.
