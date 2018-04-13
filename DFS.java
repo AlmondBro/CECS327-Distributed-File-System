@@ -76,11 +76,10 @@ public class DFS {
         gson = new Gson();
         filestream = new FileStream();
         
-        ArrayList<MetaFile> files = new ArrayList<MetaFile>();
-        metadata = new Metadata("New-name", files);
-        listOfFiles = "";
+       // ArrayList<MetaFile> files = new ArrayList<MetaFile>();
+        //listOfFiles = "";
 
-        json = gson.toJson(metadata);
+        //json = gson.toJson(metadata);
         
         System.out.println("\nMetadata JSON object (upon creating DFS object):\n\n"+json+"\n");
         
@@ -121,11 +120,60 @@ public class DFS {
     }
    */
 
+  public Metadata readMetaData() throws Exception
+  {
+        //Read -- do something and write
+      
+      long guid = md5("Metadata");
+      ChordMessageInterface peer = chord.locateSuccessor(guid);
+      FileStream metadataraw = peer.get(guid);
+      String fileName = "./"+guid+"/metadata.tep" + guidObject;
+      FileOutputStream output = new FileOutputStream(fileName);
+      while (metadataraw.available() > 0)
+          output.write(metadataraw.read());
+      output.close();
+      String fileName = "./"+guid+"/metadata.tep" + guidObject;
+      FileReader filereader = new FileReader("jsonFile.json");
+      gson.fromJson(); //Reads metadata
+      Metadata m = gson.fromJson(filereader, Metadata.class);
+
+      
+      // jsonParser = Json.createParser(metadataraw);
+      return m;
+  }
+
     public void writeMetaData(FileStream stream) throws Exception {
         //JsonParser jsonParser _null;
-        long guid = md5(stream.getFile().getName());
-        ChordMessageInterface peer = chord.locateSuccessor(guid);
-        peer.put(guid, stream);
+        long process_guid = md5("Metadata"); //which process has that file
+        long file_guid = md5(stream.getFile().getName()); 
+
+        ChordMessageInterface process = chord.locateSuccessor(process_guid); //which process has that metadata
+        process.put(file_guid, stream);
+    }
+
+    public void touch(String fileName) throws Exception {
+        Metadata m = readMetaData(); //always read first when creating 
+        
+        m.append(filename);
+
+        this.writeMetaData(m);
+
+
+        // TODO: Create the file fileName by adding a new entry to the Metadata
+        // Write Metadata
+      /*  File newFile = new File(fileName);
+        fileStream(newFile.getAbsolutePath());
+        filestream.setFile(newFile);
+        //filestream.setPath(fileName);
+
+        metadata.createFile(fileName);
+        metadata = gson.fromJson(json, Metadata.class);
+        
+        writeMetaData(filestream);
+        json = gson.toJson(metadata);*/ 
+        filestream(fileName);
+        this.writeMetaData(filestream);
+        
     }
 
     public String ls() throws Exception {
@@ -138,28 +186,15 @@ public class DFS {
     }
     
     public void mv(String oldName, String newName) throws Exception {
-        // TODO:  Change the name in Metadata
+        // TODO:  Change the name of a file in Metadata
         // Write Metadata
         
     	Metadata metadata = gson.fromJson(json, Metadata.class);
     	metadata.changeName(oldName, newName);
-    	json = gson.toJson(metadata);
+        json = gson.toJson(metadata);
+        System.out.println("Json:\t"+json);
     }
 
-    public void touch(String fileName) throws Exception {
-        // TODO: Create the file fileName by adding a new entry to the Metadata
-        // Write Metadata
-        File newFile = new File(fileName);
-        fileStream(newFile.getAbsolutePath());
-        filestream.setFile(newFile);
-        //filestream.setPath(fileName);
-
-        metadata.createFile(fileName);
-        metadata = gson.fromJson(json, Metadata.class);
-        
-        writeMetaData(filestream);
-    	json = gson.toJson(metadata);
-    }
     
     public void delete(String fileName) throws Exception {
         // TODO: remove all the pages in the entry fileName in the Metadata and then the entry

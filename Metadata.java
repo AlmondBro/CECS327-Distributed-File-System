@@ -47,13 +47,13 @@ public class Metadata {
 	}
 	
 	public void createFile(String fileName) throws FileNotFoundException, IOException {
-		ArrayList<Page> pages = new ArrayList<Page>();
+		/*ArrayList<Page> pages = new ArrayList<Page>();
 		File new_File = new File(fileName);
 		FileStream fileStream = new FileStream(fileName);
 		fileStream.setFile(new_File);
 		//(String name, int numberOfPages, int pageSize, int size, ArrayList<Page> pages)
 		MetaFile newFile = new MetaFile(fileStream.getFile().getPath(), 0, 0, fileStream.getSize(), pages);
-		//metafiles.add(newFile);
+		metafiles.add(newFile); */
 	}
 
 	public MetaFile getFile(String fileName) throws Exception {

@@ -22,10 +22,14 @@ public class FileStream extends InputStream implements Serializable {
       while (fileInputStream.available()> 0)
       {
 	      byteBuffer[i++] = (byte)fileInputStream.read();
-      }
+      } //have byte array pass into byte buffer
       
       fileInputStream.close();	
       currentPosition = 0;	  
+    }
+
+    public FileStream(Byte[] byteArray ) {
+
     }
     
     public FileStream() throws FileNotFoundException    {
