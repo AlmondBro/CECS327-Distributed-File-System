@@ -74,7 +74,7 @@ public class Metadata {
 		}
 	}
 
-	public void append(String name, string localFile) {
+	public void append(String name, String localFile) {
 		
 	}
 

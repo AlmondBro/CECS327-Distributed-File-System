@@ -123,7 +123,7 @@ public class DFS {
   /*  public JSonParser readMetaData() throws Exception
     {
         JsonParser jsonParser _ null;
-        long guid = md5("Metadata");
+        long guid = md5("Metadata"); 
         ChordMessageInterface peer = chord.locateSuccessor(guid);
         InputStream metadataraw = peer.get(guid);
         // jsonParser = Json.createParser(metadataraw);
@@ -140,11 +140,12 @@ public class DFS {
 
   public Metadata readMetaData() throws Exception
   {
-     //Read -- do something and write  
-      long guid = md5("Metadata");
-      ChordMessageInterface peer = chord.locateSuccessor(guid);
 
+     //Read -- do something and write  
+      long guid = md5("Metadata"); //Locate metafile via GUID
+      ChordMessageInterface peer = chord.locateSuccessor(guid);
       FileStream metadataraw = peer.get(guid);
+      
       String fileName = "./"+guid+"/metadata.tep" + guidObject;
 
       FileOutputStream output = new FileOutputStream(fileName);
