@@ -22,9 +22,7 @@ public class Client
     public Client(int port) throws Exception {
             //Use InputStream classes instead 
 
-            
             // call printDFS() 
-
 
             /* 
                 1. Run 3 clients
@@ -40,8 +38,12 @@ public class Client
         userInterface.makingSelection();
     }
 
+    public void hello() {
+        System.out.println("Hello");
+    }
+
     //Whenever a client is instantiated, it'll run an instance of the client? Create three clients, and join two of them (overheard)
-    static public void main(String args[]) throws Exception
+    public static void main(String args[]) throws Exception
     {
         if (args.length < 1 ) {
             throw new IllegalArgumentException("Please supply a port parameter: <port>");
@@ -51,6 +53,7 @@ public class Client
                 javac -cp gson-2.8.2.jar Client.java Chord.java ChordMessageInterface.java DFS.java Metadata.java MetaFile.java Page.java UserInterface.java FileStream.java; java -classpath ".:gson-2.8.2.jar" Client 3000
         */
         Client client = new Client( Integer.parseInt(args[0]));
+        //hello();
         System.exit(0);
         //Client client2 = new Client(Integer.parseInt(args[1]));
      } 
