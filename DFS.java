@@ -122,22 +122,24 @@ public class DFS {
 
   public Metadata readMetaData() throws Exception
   {
-        //Read -- do something and write
-      
+     //Read -- do something and write  
       long guid = md5("Metadata");
       ChordMessageInterface peer = chord.locateSuccessor(guid);
+
       FileStream metadataraw = peer.get(guid);
       String fileName = "./"+guid+"/metadata.tep" + guidObject;
+
       FileOutputStream output = new FileOutputStream(fileName);
-      while (metadataraw.available() > 0)
+
+      while (metadataraw.available() > 0) 
           output.write(metadataraw.read());
       output.close();
-      String fileName = "./"+guid+"/metadata.tep" + guidObject;
+
+      //String fileName = "./"+guid+"/metadata.tep" + guidObject;
       FileReader filereader = new FileReader("jsonFile.json");
       gson.fromJson(); //Reads metadata
       Metadata m = gson.fromJson(filereader, Metadata.class);
 
-      
       // jsonParser = Json.createParser(metadataraw);
       return m;
   }
@@ -152,15 +154,15 @@ public class DFS {
     }
 
     public void touch(String fileName) throws Exception {
-        Metadata m = readMetaData(); //always read first when creating 
-        
-        m.append(filename);
-
-        this.writeMetaData(m);
-
-
-        // TODO: Create the file fileName by adding a new entry to the Metadata
+         // TODO: Create the file fileName by adding a new entry to the Metadata
         // Write Metadata
+        Metadata metadata = readMetaData(); //always read first when creating 
+        
+        metadata.append(fileName);
+
+        //this.writeMetaData(metadata);
+
+
       /*  File newFile = new File(fileName);
         fileStream(newFile.getAbsolutePath());
         filestream.setFile(newFile);
