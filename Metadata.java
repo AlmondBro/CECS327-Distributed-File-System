@@ -17,11 +17,11 @@ import java.util.ArrayList;
 import java.io.FileNotFoundException;
 import java.io.IOException;;
 public class Metadata {
+
 	private String name;
 	private ArrayList<MetaFile> metafiles; 
 	
-	public Metadata(String name, ArrayList<MetaFile> metafiles)
-	{
+	public Metadata(String name, ArrayList<MetaFile> metafiles) {
 		this.name = name;
 		this.metafiles = metafiles;
 	}
@@ -73,6 +73,11 @@ public class Metadata {
 				 metafiles.remove(i);
 		}
 	}
+
+	public void append(String name, string localFile) {
+		
+	}
+
 	public void toJson() {
 
 	}

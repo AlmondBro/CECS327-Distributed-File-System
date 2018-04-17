@@ -5,7 +5,6 @@ import java.net.*;
 import java.util.*;
 import java.io.*;
 
-
 public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordMessageInterface {
     public static final int M = 2;
     

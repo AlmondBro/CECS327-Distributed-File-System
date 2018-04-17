@@ -57,6 +57,13 @@ public class DFS {
     private Metadata metadata;
     private String listOfFiles;
     
+    /**
+     * Runs the md5 algorithm on an object and
+     * returns its guid
+     * @param objectName is a String and the only
+     * input
+     * @return a guid in the form of a long
+     */
     private long md5(String objectName) {
         try {
             MessageDigest m = MessageDigest.getInstance("MD5");
@@ -71,6 +78,12 @@ public class DFS {
         return 0;
     } //end md5() method
     
+      /**
+     * Constructor for the DFS class. Takes
+     * an integer as the port number.
+     * @param port
+     * @throws Exception
+     */
     public DFS(int port) throws Exception
     {
         gson = new Gson();
@@ -97,6 +110,11 @@ public class DFS {
         this.listOfFiles.concat(stringToConcatenate);
     }   
 
+    /** Method to join a process to a Chord network
+     * @param ip IP address of the machine's network you wish to join
+     * @param port of the network
+     * @throws Exception 
+     */
     public void join(String ip, int port) throws Exception {
         chord.joinRing(ip, port);
         chord.Print();
@@ -153,6 +171,12 @@ public class DFS {
         process.put(file_guid, stream);
     }
 
+     /**
+     * Creates a new file with the inputted name
+     * into the metadata object.
+     * @param fileName
+     * @throws Exception
+     */
     public void touch(String fileName) throws Exception {
          // TODO: Create the file fileName by adding a new entry to the Metadata
         // Write Metadata
@@ -178,6 +202,12 @@ public class DFS {
         
     }
 
+     /**
+     * Returns a list of the files in the
+     * metadata in the form of a string.
+     * @return
+     * @throws Exception
+     */
     public String ls() throws Exception {
        // TODO: returns all the files in the Metadata
         
@@ -187,6 +217,12 @@ public class DFS {
         return this.getStringOfFiles();
     }
     
+     /**
+     * Renames the metadata object.
+     * @param oldName
+     * @param newName
+     * @throws Exception
+     */
     public void mv(String oldName, String newName) throws Exception {
         // TODO:  Change the name of a file in Metadata
         // Write Metadata
@@ -197,7 +233,12 @@ public class DFS {
         System.out.println("Json:\t"+json);
     }
 
-    
+    /**
+     * Deletes a file and all of its pages
+     * from the metadata.
+     * @param fileName
+     * @throws Exception
+     */
     public void delete(String fileName) throws Exception {
         // TODO: remove all the pages in the entry fileName in the Metadata and then the entry
         // for each page in Metadata.filename
@@ -210,6 +251,14 @@ public class DFS {
         // Write Metadata    	
     }
     
+      /**
+     * Returns a page from a file from the metadata
+     * in the form of a FileStream.
+     * @param fileName
+     * @param pageNumber
+     * @return
+     * @throws Exception
+     */
     public FileStream read(String fileName, int pageNumber) throws Exception {
         // TODO: read pageNumber from fileName
     	Metadata metadata = gson.fromJson(json, Metadata.class);
@@ -225,6 +274,13 @@ public class DFS {
     }
     
     
+     /**
+     * Returns the last page of a file in the metadata
+     * in the form of a Filestream.
+     * @param fileName
+     * @return Filestream
+     * @throws Exception
+     */
     public FileStream tail(String fileName) throws Exception
     {
         // TODO: return the last page of the fileName
@@ -239,6 +295,14 @@ public class DFS {
     	FileStream inputstream = new FileStream(filepath);
     	return inputstream;
     }
+
+     /**
+     * Returns the first page of the file in the
+     * metadata.
+     * @param fileName
+     * @return
+     * @throws Exception
+     */
     public FileStream head(String fileName) throws Exception
     {
         // TODO: return the first page of the fileName
@@ -253,6 +317,14 @@ public class DFS {
     	FileStream inputstream = new FileStream(filepath);
     	return inputstream;
     }
+
+     /**
+     * Adds a new file to the end of the array of 
+     * files in the metadata.
+     * @param filename
+     * @param filepath
+     * @throws Exception
+     */
     public void append(String filename, String filepath) throws Exception
     {
         // TODO: append data to fileName. If it is needed, add a new page.

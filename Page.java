@@ -10,7 +10,7 @@ public class Page {
 		this.size = size;
 	}
 	
-	public int getNumber()
+	public int getNumberofPage()
 	{
 		return this.number;
 	}
