@@ -50,7 +50,8 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
         FileStream file = null;
         try {
             //May have to use a different. You pass a fileStream into Chord.put();
-             file = new FileStream("./"+guid+"/repository/" + guidObject);
+             //file = new FileStream("./"+guid+"/repository/" + guidObject);
+             file = new FileStream("./"+guid+"/repository");
         } catch (IOException e)
         {
             throw(new RemoteException("File does not exists"));
