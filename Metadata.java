@@ -25,6 +25,9 @@ public class Metadata {
 		this.name = name;
 		this.metafiles = metafiles;
 	}
+
+	public Metadata() {
+	}
 	
 	public void changeName(String oldName, String newName)
 	{
