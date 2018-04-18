@@ -57,29 +57,8 @@ public class DFS {
     private FileStream filestream;
     private Metadata metadata;
     private String listOfFiles;
-    
+
     /**
-     * Runs the md5 algorithm on an object and
-     * returns its guid
-     * @param objectName is a String and the only
-     * input
-     * @return a guid in the form of a long
-     */
-    private long md5(String objectName) {
-        try {
-            MessageDigest m = MessageDigest.getInstance("MD5");
-            m.reset();
-            m.update(objectName.getBytes());
-            BigInteger bigInt = new BigInteger(1,m.digest());
-            return Math.abs(bigInt.longValue());
-        } catch(NoSuchAlgorithmException e) {
-                //e.printStackTrace();
-                System.out.println("Caught error in md5() method");
-        }
-        return 0;
-    } //end md5() method
-    
-      /**
      * Constructor for the DFS class. Takes
      * an integer as the port number.
      * @param port
@@ -117,6 +96,28 @@ public class DFS {
     public void setStringOfFiles(String stringToConcatenate) {
         this.listOfFiles.concat(stringToConcatenate);
     }   
+
+    /**
+     * Runs the md5 algorithm on an object and
+     * returns its guid
+     * @param objectName is a String and the only
+     * input
+     * @return a guid in the form of a long
+     */
+    private long md5(String objectName) {
+        try {
+            MessageDigest m = MessageDigest.getInstance("MD5");
+            m.reset();
+            m.update(objectName.getBytes());
+            BigInteger bigInt = new BigInteger(1,m.digest());
+            System.out.println("MD5:\t" + Math.abs(bigInt.longValue()));
+            return Math.abs(bigInt.longValue());
+        } catch(NoSuchAlgorithmException e) {
+                //e.printStackTrace();
+                System.out.println("Caught error in md5() method");
+        }
+        return 0;
+    } //end md5() method
 
     /** Method to join a process to a Chord network
      * @param ip IP address of the machine's network you wish to join
@@ -158,7 +159,7 @@ public class DFS {
 
         //String fileName = "./"+guid+"/metadata.tep"; 
          //+ guidObject; javac -cp gson-2.8.2.jar Client.java Chord.java ChordMessageInterface.java DFS.java Metadata.java MetaFile.java Page.java UserInterface.java FileStream.java; java -classpath ".:gson-2.8.2.jar" Client 3000
-        String fileName = "./"+guid+"/metadata.tep";
+        String fileName = "./"+guid+"/metadata.tep"; //Not getting path from here
         System.out.println(fileName);
        
         FileOutputStream output = new FileOutputStream(fileName);
@@ -176,7 +177,7 @@ public class DFS {
       }
      
       // jsonParser = Json.createParser(metadataraw);
-      System.out.println("readMetaData()");
+      //System.out.println("readMetaData()");
       return metadata;
   }
 
@@ -188,7 +189,7 @@ public class DFS {
        //Following block is to write to localFile
         System.out.println("GUID:\t" + guid);
         String fileName = "./"+guid+"/metadata.tep";
-        Writer writer = new FileWriter(fileName);
+        Writer writer = new FileWriter(new File(fileName));
         //gson = new GsonBuilder().create();
 
         gson.toJson(metadata, writer);
@@ -216,12 +217,7 @@ public class DFS {
         //this.getGsonObject().toJson(metadata);
         metadata.createFile(fileName);
         this.writeMetaData(metadata);
-        
-        
-       /* Austin's code 
-        Metadata metadata = gson.fromJson(json, Metadata.class);
-    	metadata.createFile(fileName);
-        json = gson.toJson(metadata); */
+    
     }
 
      /**
