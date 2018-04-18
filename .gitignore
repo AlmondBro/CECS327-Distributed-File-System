@@ -5,7 +5,7 @@
 .hello.txt
 
 #ignore GSON-generated folders
-gson/
+#gson/
 .metadata/
 
 

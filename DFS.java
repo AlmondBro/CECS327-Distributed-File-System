@@ -73,8 +73,8 @@ public class DFS {
             BigInteger bigInt = new BigInteger(1,m.digest());
             return Math.abs(bigInt.longValue());
         } catch(NoSuchAlgorithmException e) {
-                e.printStackTrace();
-                
+                //e.printStackTrace();
+                System.out.println("Caught error in md5() method");
         }
         return 0;
     } //end md5() method
@@ -186,6 +186,7 @@ public class DFS {
        // json = gson.toJson(metadata); 
         
        //Following block is to write to localFile
+        System.out.println("GUID:\t" + guid);
         String fileName = "./"+guid+"/metadata.tep";
         Writer writer = new FileWriter(fileName);
         //gson = new GsonBuilder().create();
