@@ -55,7 +55,7 @@ public class DFS {
     private Gson gson;
     private String json;
     private FileStream filestream;
-    private Metadata metadata;
+    //private Metadata metadata;
     private String listOfFiles;
 
     /**
@@ -66,18 +66,7 @@ public class DFS {
      */
     public DFS(int port) throws Exception
     {
-        gson = new Gson();
-        filestream = new FileStream();
-        
-       // ArrayList<MetaFile> files = new ArrayList<MetaFile>();
-        //listOfFiles = "";
-        //json = gson.toJson(metadata);
-        
-        ArrayList<MetaFile> files = new ArrayList<MetaFile>();
-        metadata = new Metadata("Metadata", files);
-        json = gson.toJson(metadata);
-
-        System.out.println("\nMetadata JSON object (upon creating DFS object):\n\n"+json+"\n");
+        gson = new Gson();            
         
         this.port = port;
         long guid = md5("" + port);
@@ -154,15 +143,15 @@ public class DFS {
         //Read -- do something and write  
         long guid = md5("Metadata"); //Locate metafile via GUID
         ChordMessageInterface peer = chord.locateSuccessor(guid);
-
         FileStream metadataraw = peer.get(guid);
-
+        
         //String fileName = "./"+guid+"/metadata.tep"; 
          //+ guidObject; javac -cp gson-2.8.2.jar Client.java Chord.java ChordMessageInterface.java DFS.java Metadata.java MetaFile.java Page.java UserInterface.java FileStream.java; java -classpath ".:gson-2.8.2.jar" Client 3000
         String fileName = "./"+guid+"/metadata.tep"; //Not getting path from here
         System.out.println(fileName);
        
         FileOutputStream output = new FileOutputStream(fileName);
+        
   
         while (metadataraw.available() > 0) 
             output.write(metadataraw.read());
@@ -183,22 +172,19 @@ public class DFS {
 
     public void writeMetaData(Metadata metadata) throws Exception {
         //metadata = readMetaData();
-        
-       // json = gson.toJson(metadata); 
+        Gson gson = new Gson();
         
        //Following block is to write to localFile
         System.out.println("GUID:\t" + guid);
-        String fileName = "./"+guid+"/metadata.tep";
-        Writer writer = new FileWriter(new File(fileName));
-        //gson = new GsonBuilder().create();
-
+        String tempFile =  "./"+guid+"/metadata.tep";
+        Writer writer = new FileWriter(new File(tempFile));
         gson.toJson(metadata, writer);
         writer.close();
      
         long guid = md5("Metadata"); //which process has that file
         ChordMessageInterface process = chord.locateSuccessor(guid); //which process has that metadata
-        process.put(guid, new FileStream(fileName));
-        System.out.println("readMetaData()");
+        process.put(guid, new FileStream(tempFile));
+        System.out.println("File was succesfully posted to FileSystem.");
     }
 
     public Gson getGsonObject() {
@@ -227,12 +213,10 @@ public class DFS {
      * @throws Exception
      */
     public String ls() throws Exception {
+        Metadata metadata = readMetaData(); //always read first when creating
+
        // TODO: returns all the files in the Metadata
-       String listOfFiles = "";
-       // TODO: returns all the files in the Metadata
-       // JsonParser jp = readMetaData();
-        
-        Metadata metadata = gson.fromJson(json, Metadata.class);
+        String listOfFiles = "";
     	listOfFiles = metadata.getFileNames();
         
 return listOfFiles;
@@ -250,14 +234,10 @@ return listOfFiles;
      * @throws Exception
      */
     public void mv(String oldName, String newName) throws Exception {
-        // TODO:  Change the name of a file in Metadata
-        // Write Metadata
-        
-    	Metadata metadata = gson.fromJson(json, Metadata.class);
-    	metadata.changeName(oldName, newName);
-        json = gson.toJson(metadata);
-        System.out.println("Json:\t"+json);
-    }
+        Metadata metadata = readMetaData(); //always read first when creating
+        metadata.changeName(oldName, newName);
+        writeMetaData(metadata);
+     }
 
     /**
      * Deletes a file and all of its pages
@@ -271,9 +251,9 @@ return listOfFiles;
         //     peer = chord.locateSuccessor(page.guid);
         //     peer.delete(page.guid)
         // delete Metadata.filename
-           Metadata metadata = gson.fromJson(json, Metadata.class);
+            Metadata metadata = readMetaData(); //always read first when creating
            metadata.delete(fileName);
-           json = gson.toJson(metadata);
+           writeMetaData(metadata);
         // Write Metadata    	
     }
     
@@ -287,16 +267,12 @@ return listOfFiles;
      */
     public FileStream read(String fileName, int pageNumber) throws Exception {
         // TODO: read pageNumber from fileName
-    	Metadata metadata = gson.fromJson(json, Metadata.class);
-    	Page page = metadata.getFile(fileName).getPage(pageNumber);
+        Metadata metadata = readMetaData(); //always read first when creating
+        Page page = metadata.getFile(fileName).getPage(pageNumber);
+        
+        ChordMessageInterface peer = chord.locateSuccessor(page.getGUID());
+        return peer.get(page.getGUID());
     	
-    	String filepath = fileName + ".txt";
-    	PrintWriter writer = new PrintWriter(filepath, "UTF-8");
-    	writer.println(page);
-    	writer.close();
-    	
-    	FileStream inputstream = new FileStream(filepath);
-    	return inputstream;
     }
     
     
@@ -309,17 +285,12 @@ return listOfFiles;
      */
     public FileStream tail(String fileName) throws Exception
     {
-        // TODO: return the last page of the fileName
-    	Metadata metadata = gson.fromJson(json, Metadata.class);
-    	Page page = metadata.getFile(fileName).getLastPage();
-    	
-    	String filepath = fileName + ".txt";
-    	PrintWriter writer = new PrintWriter(filepath, "UTF-8");
-    	writer.println(page);
-    	writer.close();
-    	
-    	FileStream inputstream = new FileStream(filepath);
-    	return inputstream;
+        Metadata metadata = readMetaData(); //always read first when creating
+
+        Page page = metadata.getFile(fileName).getLastPage();
+        
+        ChordMessageInterface peer = chord.locateSuccessor(page.getGUID());
+        return peer.get(page.getGUID());
     }
 
      /**
@@ -331,17 +302,7 @@ return listOfFiles;
      */
     public FileStream head(String fileName) throws Exception
     {
-        // TODO: return the first page of the fileName
-    	Metadata metadata = gson.fromJson(json, Metadata.class);
-    	Page page = metadata.getFile(fileName).getFirstPage();
-    	
-    	String filepath = fileName + ".txt";
-    	PrintWriter writer = new PrintWriter(filepath, "UTF-8");
-    	writer.println(page);
-    	writer.close();
-    	
-    	FileStream inputstream = new FileStream(filepath);
-    	return inputstream;
+        return read(fileName, 0);
     }
 
      /**
@@ -351,42 +312,24 @@ return listOfFiles;
      * @param filepath
      * @throws Exception
      */
-    public void append(String filename, String filepath) throws Exception
+    public void append(String filename, String localfile) throws Exception
     {
         // TODO: append data to fileName. If it is needed, add a new page.
         // Let guid be the last page in Metadata.filename
         //ChordMessageInterface peer = chord.locateSuccessor(guid);
         //peer.put(guid, data);
         // Write Metadata
-    	
-    	// Get the file's size
-    	File file = new File(filepath);
-    	long fileSpace = file.getTotalSpace();
-    	
-    	// md5 the file
-    	long guid = md5(filename);
-    	
-    	// store the data into a page
-    	//Page page = new Page(metadata.getFile(filename).getLastPage().getNumber() + 1, guid, fileSpace);
-        Page page = new Page(1, 4344545, 5);
+        Metadata metadata = readMetaData(); //always read first when creating
+
+	    // md5 the file
+        long guid = md5(localfile);
+        Page page = new Page(0, guid, 0);
+        metadata.getFile(filename).addPage(page);
         
-    	// put the page into the metadata
-    	metadata.getFile(filename).addPage(page);
-    	
-    	// Write the file to disk
-    	String newFilepath = filename + ".txt";
-    	PrintWriter writer = new PrintWriter(newFilepath, "UTF-8");
-    	writer.println(page);
-    	writer.close();
-    	
-    	FileStream inputstream = new FileStream(newFilepath);
-        
-    	// TODO: update the file
-    	ChordMessageInterface peer = chord.locateSuccessor(guid);
-        peer.put(guid, inputstream);
+        ChordMessageInterface peer = chord.locateSuccessor(guid);
+        peer.put(guid, new FileStream(localfile));
+        writeMetaData(metadata);
     }
 
-    public Metadata getMetadata() {
-        return this.metadata;
-    }
+   
 }

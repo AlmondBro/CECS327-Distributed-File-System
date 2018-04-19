@@ -18,16 +18,18 @@ import java.io.FileNotFoundException;
 import java.io.IOException;;
 public class Metadata {
 
-	private String name;
+	//private String name;
 	private ArrayList<MetaFile> metafiles; 
 	
-	public Metadata(String name, ArrayList<MetaFile> metafiles) {
+/*	public Metadata(String name, ArrayList<MetaFile> metafiles) {
 		this.name = name;
 		this.metafiles = metafiles;
-	}
+	}*/
 
 	public Metadata() {
+		metafiles = new ArrayList<MetaFile>();	
 	}
+
 	
 	public void changeName(String oldName, String newName)
 	{
@@ -50,6 +52,9 @@ public class Metadata {
 	}
 	
 	public void createFile(String fileName) throws FileNotFoundException, IOException {
+		
+		MetaFile metafile = new MetaFile(fileName, 0, 0, 0, new ArrayList<Page>());
+		metafiles.add(metafile);
 		/*ArrayList<Page> pages = new ArrayList<Page>();
 		File new_File = new File(fileName);
 		FileStream fileStream = new FileStream(fileName);
