@@ -35,6 +35,7 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
     public void put(long guidObject, FileStream stream) throws RemoteException {
       try {
           String fileName = "./"+guid+"/repository/" + guidObject;
+          //String fileName = guid+"/repository/" + guidObject;
           FileOutputStream output = new FileOutputStream(fileName);
           while (stream.available() > 0)
               output.write(stream.read());
