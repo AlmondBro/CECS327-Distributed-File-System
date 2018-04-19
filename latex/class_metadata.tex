@@ -1,0 +1,98 @@
+\hypertarget{class_metadata}{}\section{Metadata Class Reference}
+\label{class_metadata}\index{Metadata@{Metadata}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_metadata_a5d0290e9e1427f229a976d921da5423b}{Metadata}} (String name, Array\+List$<$ \mbox{\hyperlink{class_meta_file}{Meta\+File}} $>$ metafiles)
+\item 
+void \mbox{\hyperlink{class_metadata_ad82a2024da7159b62b4baaf431c986e6}{change\+Name}} (String newname)
+\item 
+String \mbox{\hyperlink{class_metadata_a47932985a21ca5fe3e99726b50c36658}{get\+File\+Names}} ()
+\item 
+void \mbox{\hyperlink{class_metadata_a67800e2f003cabb15744b86bec38a783}{create\+File}} (String file\+Name)
+\item 
+\mbox{\hyperlink{class_meta_file}{Meta\+File}} \mbox{\hyperlink{class_metadata_ae29cb4e7e73fdda5a3649e085863d481}{get\+File}} (String file\+Name)  throws Exception 	
+\item 
+\mbox{\Hypertarget{class_metadata_ad553fd3bd0610354c55d603c64886533}\label{class_metadata_ad553fd3bd0610354c55d603c64886533}} 
+void {\bfseries to\+Json} ()
+\item 
+\mbox{\Hypertarget{class_metadata_ab22a1ff2f8390792d6c520be50dd3906}\label{class_metadata_ab22a1ff2f8390792d6c520be50dd3906}} 
+void {\bfseries readfrom\+J\+S\+ON} ()
+\item 
+\mbox{\Hypertarget{class_metadata_a8176cc867722d5a71d2a17ba574d61bc}\label{class_metadata_a8176cc867722d5a71d2a17ba574d61bc}} 
+void {\bfseries delete\+File} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_metadata_a5d0290e9e1427f229a976d921da5423b}\label{class_metadata_a5d0290e9e1427f229a976d921da5423b}} 
+\index{Metadata@{Metadata}!Metadata@{Metadata}}
+\index{Metadata@{Metadata}!Metadata@{Metadata}}
+\subsubsection{\texorpdfstring{Metadata()}{Metadata()}}
+{\footnotesize\ttfamily Metadata.\+Metadata (\begin{DoxyParamCaption}\item[{String}]{name,  }\item[{Array\+List$<$ \mbox{\hyperlink{class_meta_file}{Meta\+File}} $>$}]{metafiles }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructor for the metadata class. Requires a string name and an arraylist of files. 
+\begin{DoxyParams}{Parameters}
+{\em name} & \\
+\hline
+{\em metafiles} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_metadata_ad82a2024da7159b62b4baaf431c986e6}\label{class_metadata_ad82a2024da7159b62b4baaf431c986e6}} 
+\index{Metadata@{Metadata}!change\+Name@{change\+Name}}
+\index{change\+Name@{change\+Name}!Metadata@{Metadata}}
+\subsubsection{\texorpdfstring{change\+Name()}{changeName()}}
+{\footnotesize\ttfamily void Metadata.\+change\+Name (\begin{DoxyParamCaption}\item[{String}]{newname }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Renames the metadata\textquotesingle{}s name with a new one. 
+\begin{DoxyParams}{Parameters}
+{\em newname} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_metadata_a67800e2f003cabb15744b86bec38a783}\label{class_metadata_a67800e2f003cabb15744b86bec38a783}} 
+\index{Metadata@{Metadata}!create\+File@{create\+File}}
+\index{create\+File@{create\+File}!Metadata@{Metadata}}
+\subsubsection{\texorpdfstring{create\+File()}{createFile()}}
+{\footnotesize\ttfamily void Metadata.\+create\+File (\begin{DoxyParamCaption}\item[{String}]{file\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_metadata_ae29cb4e7e73fdda5a3649e085863d481}\label{class_metadata_ae29cb4e7e73fdda5a3649e085863d481}} 
+\index{Metadata@{Metadata}!get\+File@{get\+File}}
+\index{get\+File@{get\+File}!Metadata@{Metadata}}
+\subsubsection{\texorpdfstring{get\+File()}{getFile()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_meta_file}{Meta\+File}} Metadata.\+get\+File (\begin{DoxyParamCaption}\item[{String}]{file\+Name }\end{DoxyParamCaption}) throws Exception\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns a specific file using the filename inputted. 
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_metadata_a47932985a21ca5fe3e99726b50c36658}\label{class_metadata_a47932985a21ca5fe3e99726b50c36658}} 
+\index{Metadata@{Metadata}!get\+File\+Names@{get\+File\+Names}}
+\index{get\+File\+Names@{get\+File\+Names}!Metadata@{Metadata}}
+\subsubsection{\texorpdfstring{get\+File\+Names()}{getFileNames()}}
+{\footnotesize\ttfamily String Metadata.\+get\+File\+Names (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns a list of all of the file\textquotesingle{}s names in the form of a string. \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Metadata.\+java\end{DoxyCompactItemize}

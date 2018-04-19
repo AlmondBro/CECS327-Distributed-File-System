@@ -1,0 +1,73 @@
+\hypertarget{class_chord}{}\section{Chord Class Reference}
+\label{class_chord}\index{Chord@{Chord}}
+Inheritance diagram for Chord\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_chord}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_chord_aa0b073bf26ea53ee4c36749b5bde4935}\label{class_chord_aa0b073bf26ea53ee4c36749b5bde4935}} 
+Boolean {\bfseries is\+Key\+In\+Semi\+Close\+Interval} (long key, long key1, long key2)
+\item 
+\mbox{\Hypertarget{class_chord_a68c9c3d06da58a6a32aa536751d6a221}\label{class_chord_a68c9c3d06da58a6a32aa536751d6a221}} 
+Boolean {\bfseries is\+Key\+In\+Open\+Interval} (long key, long key1, long key2)
+\item 
+\mbox{\Hypertarget{class_chord_a24d1b07e8c80574244876cf84f86aa4d}\label{class_chord_a24d1b07e8c80574244876cf84f86aa4d}} 
+void {\bfseries put} (long guid\+Object, Input\+Stream stream)  throws Remote\+Exception 
+\item 
+\mbox{\Hypertarget{class_chord_a3e0b4e9a1af09a0604be7eecea716cba}\label{class_chord_a3e0b4e9a1af09a0604be7eecea716cba}} 
+Input\+Stream {\bfseries get} (long guid\+Object)  throws Remote\+Exception 
+\item 
+\mbox{\Hypertarget{class_chord_a8bc6bdc9f92665955ae6907f15cc7ea6}\label{class_chord_a8bc6bdc9f92665955ae6907f15cc7ea6}} 
+void {\bfseries delete} (long guid\+Object)  throws Remote\+Exception 
+\item 
+\mbox{\Hypertarget{class_chord_a3dfb600d109b7d23459a3353af0274a9}\label{class_chord_a3dfb600d109b7d23459a3353af0274a9}} 
+long {\bfseries get\+Id} ()  throws Remote\+Exception 
+\item 
+\mbox{\Hypertarget{class_chord_a0a677ced19cc0cb5afd2a695977aeb95}\label{class_chord_a0a677ced19cc0cb5afd2a695977aeb95}} 
+boolean {\bfseries is\+Alive} ()  throws Remote\+Exception 
+\item 
+\mbox{\Hypertarget{class_chord_a3f1aadce3820e808c80662bb61a58e34}\label{class_chord_a3f1aadce3820e808c80662bb61a58e34}} 
+\mbox{\hyperlink{interface_chord_message_interface}{Chord\+Message\+Interface}} {\bfseries get\+Predecessor} ()  throws Remote\+Exception 
+\item 
+\mbox{\Hypertarget{class_chord_a7e354ea388d048d4910fa28b182ebe9f}\label{class_chord_a7e354ea388d048d4910fa28b182ebe9f}} 
+\mbox{\hyperlink{interface_chord_message_interface}{Chord\+Message\+Interface}} {\bfseries locate\+Successor} (long key)  throws Remote\+Exception 
+\item 
+\mbox{\Hypertarget{class_chord_aecd3971877558c3b1290bd49d7576ab0}\label{class_chord_aecd3971877558c3b1290bd49d7576ab0}} 
+\mbox{\hyperlink{interface_chord_message_interface}{Chord\+Message\+Interface}} {\bfseries closest\+Preceding\+Node} (long key)  throws Remote\+Exception 
+\item 
+\mbox{\Hypertarget{class_chord_ace0b8d2768590d7527af155c6573cae7}\label{class_chord_ace0b8d2768590d7527af155c6573cae7}} 
+void {\bfseries join\+Ring} (String ip, int port)  throws Remote\+Exception 
+\item 
+\mbox{\Hypertarget{class_chord_a65c855dc1d8c6a82545899cb823dba2e}\label{class_chord_a65c855dc1d8c6a82545899cb823dba2e}} 
+void {\bfseries finding\+Next\+Successor} ()
+\item 
+\mbox{\Hypertarget{class_chord_a8a4b7a1cd88cb3f607ada0629f2ff2dd}\label{class_chord_a8a4b7a1cd88cb3f607ada0629f2ff2dd}} 
+void {\bfseries stabilize} ()
+\item 
+\mbox{\Hypertarget{class_chord_a4de8b8464782dd96d88deeb35b2f27a2}\label{class_chord_a4de8b8464782dd96d88deeb35b2f27a2}} 
+void {\bfseries notify} (\mbox{\hyperlink{interface_chord_message_interface}{Chord\+Message\+Interface}} j)  throws Remote\+Exception 
+\item 
+\mbox{\Hypertarget{class_chord_a02763f74bbd986baa7e6567bf9dc3c95}\label{class_chord_a02763f74bbd986baa7e6567bf9dc3c95}} 
+void {\bfseries fix\+Fingers} ()
+\item 
+\mbox{\Hypertarget{class_chord_a530b2ab58c9f4026dadf4293c38c4450}\label{class_chord_a530b2ab58c9f4026dadf4293c38c4450}} 
+void {\bfseries check\+Predecessor} ()
+\item 
+\mbox{\Hypertarget{class_chord_a6e4b3112b0268455fd599c57b5479791}\label{class_chord_a6e4b3112b0268455fd599c57b5479791}} 
+{\bfseries Chord} (int port, long guid)  throws Remote\+Exception 
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_chord_a864e0b4011dc157c78a06dd951c6d9ac}\label{class_chord_a864e0b4011dc157c78a06dd951c6d9ac}} 
+static final int {\bfseries M} = 2
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Chord.\+java\end{DoxyCompactItemize}
