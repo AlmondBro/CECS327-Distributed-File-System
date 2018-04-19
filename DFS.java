@@ -85,8 +85,6 @@ public class DFS implements Serializable {
             printWriter.close();
             metafile_physicalFile.createNewFile();
         }
-
-
     }
 
     public long getGUID() {
