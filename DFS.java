@@ -217,7 +217,7 @@ public class DFS implements Serializable {
             
            //Following block is to write to localFile
             System.out.println("GUID:\t" + guid);
-            String tempFile =  "/"+guid+"/metadata.tep";
+            String tempFile =  guid+"/metadata.tep";
             File tempFile_file  = new File(tempFile);
             tempFile_file.createNewFile();
 
