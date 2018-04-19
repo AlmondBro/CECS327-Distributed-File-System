@@ -46,8 +46,7 @@ import com.google.gson.Gson;
     }
 }
  */
-
-public class DFS {
+public class DFS implements Serializable {
     int port;
     Chord chord;
     
@@ -57,6 +56,8 @@ public class DFS {
     private FileStream filestream;
     //private Metadata metadata;
     private String listOfFiles;
+
+    private File metafile_physicalFile;
 
     /**
      * Constructor for the DFS class. Takes
@@ -71,7 +72,21 @@ public class DFS {
         this.port = port;
         long guid = md5("" + port);
         chord = new Chord(port, guid);
-        Files.createDirectories(Paths.get("./"+guid+"/repository"));
+        Files.createDirectories(Paths.get(guid+"/repository"));
+        //Files.createDirectories(Paths.get("./"+guid+"/repository"));
+
+        metafile_physicalFile = new File(guid+"/repository/"+md5("Metadata"));
+
+        String metadataContentString =  "{"+"metadata:"+"{";
+
+        if (!metafile_physicalFile.exists() ) {
+            PrintWriter printWriter = new PrintWriter(metafile_physicalFile);
+            printWriter.print(metadataContentString);
+            printWriter.close();
+            metafile_physicalFile.createNewFile();
+        }
+
+
     }
 
     public long getGUID() {
@@ -144,6 +159,7 @@ public class DFS {
         long guid = md5("Metadata"); //Locate metafile via GUID
         ChordMessageInterface peer = chord.locateSuccessor(guid);
         FileStream metadataraw = peer.get(guid);
+        
         File peerFile = metadataraw.getFile();
 
         //String fileName = "./"+guid+"/metadata.tep"; 
