@@ -83,7 +83,12 @@ public class Metadata {
 	public void readfromJSON() {
 	
 	}
-	public void deleteFile() {
-		
+	public void deleteFile(String filename) 
+	{
+		for(int i = 0; i < metafiles.size(); i++)
+		{
+			if(metafiles.get(i).getName().equals(filename))
+				metafiles.remove(i);
+		}
 	}
 }

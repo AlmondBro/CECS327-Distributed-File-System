@@ -94,7 +94,7 @@ public class DFS {
         //ArrayList<Page> pages = new ArrayList<Page>();
         //MetaFile file = new MetaFile("New-name", 0, 0, 0, pages);
         ArrayList<MetaFile> files = new ArrayList<MetaFile>();
-        metadata = new Metadata("New-name", files);
+        metadata = new Metadata("Metadata", files);
         
         json = gson.toJson(metadata);
         
@@ -185,7 +185,13 @@ public class DFS {
         //     peer = chord.locateSuccessor(page.guid);
         //     peer.delete(page.guid)
         // delete Metadata.filename
-        // Write Metadata    	
+        // Write Metadata
+    	
+    	metadata.deleteFile(fileName);
+    	
+    	// update the file in the "cloud"
+    	ChordMessageInterface peer = chord.locateSuccessor(guid);
+        peer.put(guid, inputstream);
     }
     /**
      * Returns a page from a file from the metadata
