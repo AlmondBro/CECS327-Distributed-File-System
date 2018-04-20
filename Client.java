@@ -34,7 +34,7 @@ public class Client
         UserInterface userInterface = new UserInterface(distributedFileSystem);
 
         userInterface.welcomeMessage();
-        userInterface.connectToDFS();
+        //userInterface.connectToDFS();
         userInterface.makingSelection();
     }
 
