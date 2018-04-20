@@ -48,7 +48,7 @@ public class UserInterface {
     public void welcomeMessage() {
           //Use InputStream classes instead 
           System.out.println("\nWelcome");
-          System.out.println("To join the distributed file system.");
+          //System.out.println("To join the distributed file system.");
     }
 
     public void connectToDFS() throws InputMismatchException, Exception {
@@ -70,6 +70,7 @@ public class UserInterface {
 
     public void getCommandLineInterface() {
         System.out.println("\nPlease make a selection");
+        System.out.println("\nTo join the DFS, enter 0:\t");
         System.out.println("To ls (list the files) enter 1:\t");
         System.out.println("To touch (create a file) enter 2:\t");
         System.out.println("To delete enter 3:\t");
@@ -97,6 +98,8 @@ public class UserInterface {
             setUserSelectionValue(userChoice);
 
             switch(this.getUserSelectionValue()) {
+                case 0:
+                    this.connectToDFS();
                 case 1:
                     String fileList = this.getDFS().ls();
                     System.out.println("The list of files are "+ fileList);

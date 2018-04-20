@@ -77,7 +77,8 @@ public class DFS implements Serializable {
 
         metafile_physicalFile = new File(guid+"/repository/"+md5("Metadata"));
 
-        String metadataContentString =  "{"+"metadata:"+"{";
+        //String metadataContentString =  "";
+        String metadataContentString =  "{}";
 
         if (!metafile_physicalFile.exists() ) {
             PrintWriter printWriter = new PrintWriter(metafile_physicalFile);
@@ -190,7 +191,7 @@ public class DFS implements Serializable {
         FileStream metadataraw = peer.get(guid);
         File peerFile = metadataraw.getFile();
 
-        String fileName = guid+"/metadata.tep";
+        String fileName = "./"+guid+"/metadata.tep";
         //File newFile = new File(fileName);
 
         FileOutputStream output = new FileOutputStream(peerFile);
@@ -219,11 +220,12 @@ public class DFS implements Serializable {
             
            //Following block is to write to localFile
             System.out.println("GUID:\t" + guid);
-            String tempFile =  "/"+guid+"/metadata.tep";
+            String tempFile =  "./"+guid+"/metadata.txt";
             File tempFile_file  = new File(tempFile);
             tempFile_file.createNewFile();
 
             FileWriter writer = new FileWriter(tempFile_file);
+            //FileWriter writer = new FileWriter(tempFile);
             gson.toJson(metadata, writer);
             writer.close();
          
