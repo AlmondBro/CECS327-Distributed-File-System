@@ -171,14 +171,13 @@ public class DFS implements Serializable {
            //Following block is to write to localFile
           
             String tempFile = getGUID() + "/repository/"+guid+"/metadata.tep";
-            System.out.println("Here is the file path: " + tempFile);
+            System.out.println("Here is the file path (writeMetaData() method):\t" + tempFile);
             File tempFile_file  = new File(tempFile);
 
            //felt we need update the existing local Metadata but writer will override 
            //the existing the Metadata with just he new file 
-           if(tempFile_file.exists())
-           {
-             System.out.println("I exist");
+           if(tempFile_file.exists()) {
+             System.out.println("Tempfile exists");
              FileWriter writer = new FileWriter(tempFile_file);
              gson.toJson(metadata, writer);
              writer.close();
@@ -186,23 +185,23 @@ public class DFS implements Serializable {
              FileWriter writer = new FileWriter(tempFile_file);
              gson.toJson(metadata, writer);
              writer.close();
-           }
+           } //end else-statement
         
            //chords put doesn't seem to put back into the cloud? how to fix
             ChordMessageInterface process = chord.locateSuccessor(guid); //which process has that metadata
             process.put(guid, new FileStream(tempFile));
             System.out.println("File was succesfully posted to FileSystem.");
+
         }  catch (FileNotFoundException e) {
             System.out.println("Stack Trace Message:\t");
             e.printStackTrace();;
-
-        }
-     
-    }
+        } //end catch-block
+    } //end writeMetadata() method
 
     public Gson getGsonObject() {
         return this.gson;
-    }
+    } //end getGsonObject() method
+    
      /**
      * Creates a new file with the inputted name
      * into the metadata object.
