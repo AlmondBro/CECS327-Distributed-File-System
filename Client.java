@@ -51,6 +51,7 @@ public class Client
             client.getUserInterface().makingSelection();
 
             System.exit(0);
+            
         } catch(IllegalArgumentException e) {
             System.out.println("\nPlease supply a port parameter: <port> upon next compilation and run. Defaulting to port #:\t" + randomPort);
             Client client = new Client(randomPort);
@@ -59,6 +60,7 @@ public class Client
             client.getUserInterface().makingSelection();
 
             System.exit(0);
+
         } catch(ArrayIndexOutOfBoundsException e) {
             System.out.println("\nPlease supply a port parameter: <port> upon next compilation and run. Defaulting to port #:\t" + randomPort);
             Client client = new Client(randomPort);
