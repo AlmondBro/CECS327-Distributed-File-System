@@ -72,7 +72,7 @@ public class DFS implements Serializable {
         
         this.port = port;
         long guid = md5("" + port);
-        setGuid(guid);
+        this.setGuid(guid);
         chord = new Chord(port, guid);
         Files.createDirectories(Paths.get(guid+"/repository/"+md5("Metadata")));
 
@@ -138,11 +138,12 @@ public class DFS implements Serializable {
         File peerFile = metadataraw.getFile(); //gets the file
         System.out.println("It located a file3"); //if prints out, file don't exist
         
-        String fileName =  getGUID() + "/repository/"+guid+"/metadata.tep";
+        String fileName =  this.getGUID() + "/repository/"+guid+"/metadata.tep";
         System.out.println(fileName);
        
         File newFile = new File(fileName);
         FileOutputStream output = new FileOutputStream(peerFile);
+
         System.out.println("I'm writing out");
         while (metadataraw.available() > 0)  {
             output.write(metadataraw.read());

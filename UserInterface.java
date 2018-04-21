@@ -9,7 +9,7 @@ public class UserInterface {
     private DFS distributedFileSystem;
 
     public UserInterface(DFS distributedFileSystem) {
-        userInput = new Scanner(System.in);
+        this.userInput = new Scanner(System.in);
         this.distributedFileSystem = distributedFileSystem;
     } //end UserInterface() constructor
 
