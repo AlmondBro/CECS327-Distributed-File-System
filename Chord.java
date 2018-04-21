@@ -34,7 +34,8 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
     
     public void put(long guidObject, FileStream stream) throws RemoteException {
       try {
-          String fileName = "./"+guid+"/repository/" + guidObject;
+          String fileName = guid+"/repository/" + guidObject + "/metadata.tep";
+          System.out.println("Path: " + fileName);
           //String fileName = guid+"/repository/" + guidObject;
           FileOutputStream output = new FileOutputStream(fileName);
           while (stream.available() > 0)
@@ -42,21 +43,25 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
           output.close();
       }
       catch (IOException e) {
-          System.out.println(e);
+          System.out.println("Not writing to the chord");
       }
     }
     
     
-    public FileStream get(long guidObject) throws RemoteException {
+    public FileStream get(long guidObject) throws RemoteException{
         FileStream file = null;
         try {
             //May have to use a different. You pass a fileStream into Chord.put();
-             file = new FileStream("./"+guid+"/repository/" + guidObject);
+            System.out.println("From chords get: "+guid+"/repository/" + guidObject + "/metadata.tep");
+             file = new FileStream(guid+"/repository/" + guidObject + "/metadata.tep");
              //file = new FileStream("./"+guid+"/repository");
         } catch (IOException e)
         {
+           
             throw(new RemoteException("File does not exists"));
+       
         }
+     
         return file;
     }
     

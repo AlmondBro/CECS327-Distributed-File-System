@@ -51,6 +51,7 @@ public class DFS implements Serializable {
     Chord chord;
     
     private long guid;
+    
     private Gson gson;
     private String json;
     private FileStream filestream;
@@ -71,23 +72,15 @@ public class DFS implements Serializable {
         
         this.port = port;
         long guid = md5("" + port);
+        setGuid(guid);
         chord = new Chord(port, guid);
-        Files.createDirectories(Paths.get(guid+"/repository"));
-        //Files.createDirectories(Paths.get("./"+guid+"/repository"));
+        Files.createDirectories(Paths.get(guid+"/repository/"+md5("Metadata")));
 
-        metafile_physicalFile = new File(guid+"/repository/"+md5("Metadata"));
-
-        //String metadataContentString =  "";
-        String metadataContentString =  "{}";
-
-        if (!metafile_physicalFile.exists() ) {
-            PrintWriter printWriter = new PrintWriter(metafile_physicalFile);
-            printWriter.print(metadataContentString);
-            printWriter.close();
-            metafile_physicalFile.createNewFile();
-        }
     }
-
+    public void setGuid(long Guid)
+    {
+        this.guid = Guid;
+    }
     public long getGUID() {
         return this.guid;
     }
@@ -113,7 +106,6 @@ public class DFS implements Serializable {
             m.reset();
             m.update(objectName.getBytes());
             BigInteger bigInt = new BigInteger(1,m.digest());
-            System.out.println("MD5:\t" + Math.abs(bigInt.longValue()));
             return Math.abs(bigInt.longValue());
         } catch(NoSuchAlgorithmException e) {
                 //e.printStackTrace();
@@ -132,78 +124,43 @@ public class DFS implements Serializable {
         chord.Print();
     }
     
-  /*  public JSonParser readMetaData() throws Exception
-    {
-        JsonParser jsonParser _ null;
-        long guid = md5("Metadata"); 
-        ChordMessageInterface peer = chord.locateSuccessor(guid);
-        InputStream metadataraw = peer.get(guid);
-        // jsonParser = Json.createParser(metadataraw);
-        return jsonParser;
-    }
-    
-    public void writeMetaData(InputStream stream) throws Exception {
-        JsonParser jsonParser _ null;
-        long guid = md5("Metadata");
-        ChordMessageInterface peer = chord.locateSuccessor(guid);
-        peer.put(guid, stream);
-    }
-   */
+
 
   public Metadata readMetaData() throws Exception, RemoteException {
     Metadata metadata = null;
       
       try {
-        //Read -- do something and write  
-        long guid = md5("Metadata"); //Locate metafile via GUID
-        ChordMessageInterface peer = chord.locateSuccessor(guid);
-        FileStream metadataraw = peer.get(guid);
+       
+        long guid = md5("Metadata"); 
         
-        File peerFile = metadataraw.getFile();
-
-        //String fileName = "./"+guid+"/metadata.tep"; 
-         //+ guidObject; javac -cp gson-2.8.2.jar Client.java Chord.java ChordMessageInterface.java DFS.java Metadata.java MetaFile.java Page.java UserInterface.java FileStream.java; java -classpath ".:gson-2.8.2.jar" Client 3000
-        //String fileName = "./"+guid+"/metadata.tep"; //Not getting path from here
-        String fileName = guid+"/metadata.tep";
+        ChordMessageInterface peer = chord.locateSuccessor(guid); //locate the processor that has the meatadata
+        FileStream metadataraw = peer.get(guid);    //locates the file  
+        File peerFile = metadataraw.getFile(); //gets the file
+        System.out.println("It located a file3"); //if prints out, file don't exist
+        
+        String fileName =  getGUID() + "/repository/"+guid+"/metadata.tep";
         System.out.println(fileName);
        
         File newFile = new File(fileName);
         FileOutputStream output = new FileOutputStream(peerFile);
-        
+        System.out.println("I'm writing out");
         while (metadataraw.available() > 0)  {
             output.write(metadataraw.read());
         }   
         output.close();
   
-        //FileReader filereader = new FileReader("jsonFile.json");
-        FileReader fileReader = new FileReader(fileName);
+ 
+        FileReader fileReader = new FileReader(new File(fileName));
          metadata =  this.getGsonObject().fromJson(fileReader, Metadata.class); //Reads metadata
-  
-      } catch(RemoteException e)  { 
-         metadata = new Metadata();
-      }
-
-      catch(FileNotFoundException e) {
-        long guid = md5("Metadata"); //Locate process with the metafile via GUID
-        ChordMessageInterface peer = chord.locateSuccessor(guid);
-        FileStream metadataraw = peer.get(guid);
-        File peerFile = metadataraw.getFile();
-
-        String fileName = "./"+guid+"/metadata.tep";
-        //File newFile = new File(fileName);
-
-        FileOutputStream output = new FileOutputStream(peerFile);
-        
-        while (metadataraw.available() > 0) {
-            output.write(metadataraw.read());
-        }
-            
-        output.close();
-  
-        //FileReader filereader = new FileReader("jsonFile.json");
-        FileReader fileReader = new FileReader(peerFile);
-         metadata =  this.getGsonObject().fromJson(fileReader, Metadata.class); //Reads metadata
-      }
+         System.out.println("I'm the metadata");
+    }catch(RemoteException e)
+    {
+       return  metadata = new Metadata();
+    
+    }catch(FileNotFoundException e) {
+        return metadata = new Metadata();
+    
+    }
      
       // jsonParser = Json.createParser(metadataraw);
       //System.out.println("readMetaData()");
@@ -213,20 +170,32 @@ public class DFS implements Serializable {
     public void writeMetaData(Metadata metadata) throws Exception {
         try  {
             long guid = md5("Metadata"); //which process has that file
+
+           
             //metadata = readMetaData();
-            Gson gson = new Gson();
+            //Gson gson = new Gson();
             
            //Following block is to write to localFile
-            System.out.println("GUID:\t" + guid);
-            String tempFile =  "./"+guid+"/metadata.txt";
+          
+            String tempFile = getGUID() + "/repository/"+guid+"/metadata.tep";
+            System.out.println("Here is the file path: " + tempFile);
             File tempFile_file  = new File(tempFile);
-            tempFile_file.createNewFile();
 
-            FileWriter writer = new FileWriter(tempFile_file);
-            //FileWriter writer = new FileWriter(tempFile);
-            gson.toJson(metadata, writer);
-            writer.close();
-         
+           //felt we need update the existing local Metadata but writer will override 
+           //the existing the Metadata with just he new file 
+           if(tempFile_file.exists())
+           {
+             System.out.println("I exist");
+             FileWriter writer = new FileWriter(tempFile_file);
+             gson.toJson(metadata, writer);
+             writer.close();
+           } else {
+             FileWriter writer = new FileWriter(tempFile_file);
+             gson.toJson(metadata, writer);
+             writer.close();
+           }
+        
+           //chords put doesn't seem to put back into the cloud? how to fix
             ChordMessageInterface process = chord.locateSuccessor(guid); //which process has that metadata
             process.put(guid, new FileStream(tempFile));
             System.out.println("File was succesfully posted to FileSystem.");
@@ -268,8 +237,7 @@ public class DFS implements Serializable {
        // TODO: returns all the files in the Metadata
         String listOfFiles = "";
     	listOfFiles = metadata.getFileNames();
-        
-return listOfFiles;
+        return listOfFiles;
        /*
         Metadata metadata = gson.fromJson(json, Metadata.class);
     	//listOfFiles = metadata.getFileNames();
@@ -375,7 +343,8 @@ return listOfFiles;
         long guid = md5(localfile);
         Page page = new Page(0, guid, 0);
         metadata.getFile(filename).addPage(page);
-        
+        String local = getGUID() + "/repository/"+guid+"/metadata.tep";
+        File local_file  = new File(local);
         ChordMessageInterface peer = chord.locateSuccessor(guid);
         peer.put(guid, new FileStream(localfile));
         writeMetaData(metadata);
