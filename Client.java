@@ -41,7 +41,6 @@ public class Client
     /* To compile and run:
         javac -cp gson-2.8.2.jar Client.java Chord.java ChordMessageInterface.java DFS.java Metadata.java MetaFile.java Page.java UserInterface.java FileStream.java; java -classpath ".:gson-2.8.2.jar" Client 3000
     */
-
         Random random = new Random();
         int randomPort = random.nextInt(5000) + 1026;
 

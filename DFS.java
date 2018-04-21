@@ -124,55 +124,47 @@ public class DFS implements Serializable {
         chord.Print();
     }
     
+    public Metadata readMetaData() throws Exception, RemoteException {
+        Metadata metadata = null;
 
+        try {
+            long guid = md5("Metadata"); 
+            
+            ChordMessageInterface peer = chord.locateSuccessor(guid); //locate the processor that has the meatadata
+            FileStream metadataraw = peer.get(guid);    //locates the file  
+            File peerFile = metadataraw.getFile(); //gets the file
+            System.out.println("It located a file3"); //if prints out, file don't exist
+            
+            String fileName =  this.getGUID() + "/repository/"+guid+"/metadata.tep";
+            System.out.println(fileName);
+            
+            File newFile = new File(fileName);
+            FileOutputStream output = new FileOutputStream(peerFile);
 
-  public Metadata readMetaData() throws Exception, RemoteException {
-    Metadata metadata = null;
-      
-      try {
-       
-        long guid = md5("Metadata"); 
-        
-        ChordMessageInterface peer = chord.locateSuccessor(guid); //locate the processor that has the meatadata
-        FileStream metadataraw = peer.get(guid);    //locates the file  
-        File peerFile = metadataraw.getFile(); //gets the file
-        System.out.println("It located a file3"); //if prints out, file don't exist
-        
-        String fileName =  this.getGUID() + "/repository/"+guid+"/metadata.tep";
-        System.out.println(fileName);
-       
-        File newFile = new File(fileName);
-        FileOutputStream output = new FileOutputStream(peerFile);
+            System.out.println("Writing out peerFile from FileOutputStream");
 
-        System.out.println("I'm writing out");
-        while (metadataraw.available() > 0)  {
-            output.write(metadataraw.read());
-        }   
-        output.close();
-  
- 
-        FileReader fileReader = new FileReader(new File(fileName));
-         metadata =  this.getGsonObject().fromJson(fileReader, Metadata.class); //Reads metadata
-         System.out.println("I'm the metadata");
-    }catch(RemoteException e)
-    {
-       return  metadata = new Metadata();
-    
-    }catch(FileNotFoundException e) {
+            while (metadataraw.available() > 0)  {
+                output.write(metadataraw.read());
+            }   
+            output.close();
+
+            FileReader fileReader = new FileReader(new File(fileName));
+            metadata =  this.getGsonObject().fromJson(fileReader, Metadata.class); //Reads metadata
+            System.out.println("I'm the metadata");
+    } catch(RemoteException e) {
         return metadata = new Metadata();
-    
-    }
-     
-      // jsonParser = Json.createParser(metadataraw);
-      //System.out.println("readMetaData()");
-      return metadata;
-  }
+
+    } catch(FileNotFoundException e) {
+        return metadata = new Metadata();
+    } //end catch() block
+        
+        return metadata;
+    } //end readMetaData() method
 
     public void writeMetaData(Metadata metadata) throws Exception {
         try  {
             long guid = md5("Metadata"); //which process has that file
 
-           
             //metadata = readMetaData();
             //Gson gson = new Gson();
             
