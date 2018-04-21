@@ -64,9 +64,9 @@ public class UserInterface {
             this.setPort(port);
 
             System.out.println("Connecting you to the distributed file system.");
-            this.getDFS().join(this.getIPAddress(), this.getPort());            
+            this.getDFS().join(this.getIPAddress(), this.getPort());          
         } //end if-statement
-    } //end 
+    } //end connectToDFS() method
 
     public void getCommandLineInterface() {
         System.out.println("\nPlease make a selection");
@@ -87,11 +87,6 @@ public class UserInterface {
         String fileName;
 
         while(flag = true) {
-            /* try {
-
-            } catch (NumberFormatException e) {
-
-            } */
             this.getCommandLineInterface();
 
             int userChoice = Integer.parseInt(user_input.nextLine()); 
@@ -100,6 +95,8 @@ public class UserInterface {
             switch(this.getUserSelectionValue()) {
                 case 0:
                     this.connectToDFS();
+                    break; 
+
                 case 1:
                     String fileList = this.getDFS().ls();
                     System.out.println("The list of files are "+ fileList);
@@ -149,12 +146,6 @@ public class UserInterface {
                     fileName =  user_input.nextLine();
                     System.out.println("You enter the file name:" + fileName);
                     break;
-                       // don't remember what the second agrument is about for append
-                //  System.out.println("Please enter the page number");
-            //   int pageNum =  user_input.nextInt();
-                // System.out.println("You enter the page number: "+ pageNum);
-                //  dfs.append(fileName, pageNum);
-                    //user_input.close();
 
                 case 7:
                     System.out.println("Please enter the file name");
@@ -179,16 +170,10 @@ public class UserInterface {
             } //ends switch statement
             //user_input.close();
             if (flag == false) {
+                //user_input.close();
                 return;
             }
-          /* try {
-        
-            } catch (InputMismatchException inputMismatch) {
-                System.err.println("\nPlease enter a number for your selection choice.");
-            }  */
-            
         } //ends while (implement way to quit while)
-  
     } //end makingSelection() method
   
 } //end UserInterface() class
