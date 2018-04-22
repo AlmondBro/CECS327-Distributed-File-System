@@ -22,4 +22,7 @@ public class Page {
 	public long getSize() {
 		return this.getSize();
 	}
+	public void setPage(int number) {
+		this.number = number;
+	}
 }

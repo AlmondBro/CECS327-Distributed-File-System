@@ -1,23 +1,29 @@
 import java.util.ArrayList;
 public class MetaFile {
 	private String name;
-	private int numberOfPages;
-	private int pageSize;
-	private int size;
-	private ArrayList<Page> pages;
+//	private int numberOfPages;
+//	private int pageSize;
+//	private int size;
+	private ArrayList<Page> page;
+
 	
-	public MetaFile(String name, int numberOfPages, int pageSize, int size, ArrayList<Page> pages)
+/*	public MetaFile(String name, int numberOfPages, int pageSize, int size, ArrayList<Page> pages)
 	{
 		this.name = name;
 		this.numberOfPages = numberOfPages;
 		this.pageSize = pageSize;
 		this.size = size;
-		this.pages = pages;
+		this.page = pages;
+
+	}*/
+	public MetaFile()
+	{
+		this.page = new ArrayList<Page>();
 	}
 	
 	public String getName()
 	{
-		return name;
+		return this.name;
 	}
 
 	public void setName(String newName) {
@@ -26,21 +32,31 @@ public class MetaFile {
 
 	public Page getPage(int pageNum) throws Exception
 	{
-		if(pageNum > pages.size() + 1)
+		if(pageNum > page.size() + 1)
 			throw new Exception("Page number does not exist!");
 		else
-			return pages.get(pageNum);
+			return page.get(pageNum);
 	}
-	public void addPage(Page page)
+	public void addPage(Page pageObject)
 	{
-		pages.add(page);
+		
+		  page.add(pageObject);
+		  System.out.println("Number of pages: "+ page);
+		if(page.size() > 1)
+		{
+		   int number = page.size();
+		   pageObject.setPage(number);
+		} else
+		{
+			pageObject.setPage(1);
+		}
 	}
 	public Page getLastPage()
 	{
-		return pages.get(pages.size() - 1);
+		return page.get(page.size() - 1);
 	}
 	public Page getFirstPage()
 	{
-		return pages.get(0);
+		return page.get(0);
 	}
 }
