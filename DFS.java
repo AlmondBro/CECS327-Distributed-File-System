@@ -74,8 +74,15 @@ public class DFS implements Serializable {
         long guid = md5("" + port);
         setGuid(guid);
         chord = new Chord(port, guid);
-        Files.createDirectories(Paths.get(guid+"/repository/"+md5("Metadata")));
-
+        
+        System.out.println(Paths.get(guid+"/repository/"+md5("Metadata")));
+        
+        File f = new File(guid+"/repository/"+md5("Metadata"));
+        if(!f.exists()) { 
+        	Files.createDirectories(Paths.get(guid+"/repository/"+md5("Metadata")));
+        }
+        System.out.println(Paths.get(guid+"/repository/"+md5("Metadata")));
+        
     }
     public void setGuid(long Guid)
     {
