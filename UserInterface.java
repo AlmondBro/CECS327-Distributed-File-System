@@ -148,6 +148,7 @@ public class UserInterface {
                     System.out.println("Please enter the file name");
                     fileName =  user_input.nextLine();
                     System.out.println("You enter the file name:" + fileName);
+                    this.getDFS().append(fileName);
                     break;
                        // don't remember what the second agrument is about for append
                 //  System.out.println("Please enter the page number");
@@ -160,7 +161,6 @@ public class UserInterface {
                     System.out.println("Please enter the file name");
                     fileName =  user_input.nextLine();
                     System.out.println("You enter the file name:" + fileName);
-
                     System.out.println("Please enter the new file name");
                     String fileName2 = user_input.nextLine();
                     System.out.println("You enter the new file name" + fileName2);
