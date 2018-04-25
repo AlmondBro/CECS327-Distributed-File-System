@@ -332,11 +332,6 @@ public class DFS implements Serializable {
      */
     public void append(String filename, String localFile) throws Exception
     {
-        // TODO: append data to fileName. If it is needed, add a new page.
-        // Let guid be the last page in Metadata.filename
-        //ChordMessageInterface peer = chord.locateSuccessor(guid);
-        //peer.put(guid, data);
-        // Write Metadata
         Metadata metadata = readMetaData(); //always read first when creating
       
         File local_file  = new File(localFile);

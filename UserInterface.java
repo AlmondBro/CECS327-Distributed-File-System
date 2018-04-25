@@ -84,6 +84,7 @@ public class UserInterface {
     public void makingSelection() throws Exception {
         Scanner user_input = new Scanner(System.in);
         boolean flag = true;
+        String filePath;
         String fileName;
 
         while(flag = true) {
@@ -147,12 +148,13 @@ public class UserInterface {
                 case 6:
                     System.out.println("Please enter file name");
                     fileName =  user_input.nextLine();
-                    System.out.println("You enter the name:" + fileName);
+                    //System.out.println("You enter the name:" + fileName);
                     System.out.println("You enter the local file path");
-                    String filePath = user_input.nextLine();
+                    filePath = user_input.nextLine();
+                    filePath = user_input.nextLine();
                     System.out.println("You entered the local file path");
 
-                    this.getDFS().append(fileName, filePath);
+                    this.getDFS().append(fileName, "test" );
                     break;
                        // don't remember what the second agrument is about for append
                 //  System.out.println("Please enter the page number");
