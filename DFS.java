@@ -145,7 +145,7 @@ public class DFS implements Serializable {
         File peerFile = metadataraw.getFile(); //gets the file
 
         
-        String fileName =  getGUID() + "/repository/"+guid+"/metadata.tep";
+        String fileName =  getGUID() + "/repository/"+guid+"/metadata.json";
         System.out.println(fileName);
        
         File newFile = new File(fileName);
@@ -176,10 +176,12 @@ public class DFS implements Serializable {
     public void writeMetaData(Metadata metadata) throws Exception {
         try  {
             long guid = md5("Metadata"); //which process has that file
+            ChordMessageInterface process = chord.locateSuccessor(guid); //which process has that metadata
             
            //Following block is to write to localFile
           
-            String tempFile = getGUID() + "/repository/"+guid+"/metadata.tep";
+            //String tempFile = getGUID() + "/repository/"+guid+"/metadata.tep";
+            String tempFile = process.getId() +  "/repository/"+guid+"/metadata.json";
             System.out.println("Here is the file path: " + tempFile);
             File tempFile_file  = new File(tempFile);
 
@@ -197,8 +199,6 @@ public class DFS implements Serializable {
              writer.close();
            }
         
-           //chords put doesn't seem to put back into the cloud? how to fix
-            ChordMessageInterface process = chord.locateSuccessor(guid); //which process has that metadata
             process.put(guid, new FileStream(tempFile));
             System.out.println("File was succesfully posted to FileSystem.");
         }  catch (FileNotFoundException e) {
