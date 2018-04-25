@@ -145,10 +145,14 @@ public class UserInterface {
                     break;
 
                 case 6:
-                    System.out.println("Please enter the file name");
+                    System.out.println("Please enter file name");
                     fileName =  user_input.nextLine();
-                    System.out.println("You enter the file name:" + fileName);
-                    this.getDFS().append(fileName);
+                    System.out.println("You enter the name:" + fileName);
+                    System.out.println("You enter the local file path");
+                    String filePath = user_input.nextLine();
+                    System.out.println("You entered the local file path");
+
+                    this.getDFS().append(fileName, filePath);
                     break;
                        // don't remember what the second agrument is about for append
                 //  System.out.println("Please enter the page number");
