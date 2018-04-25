@@ -74,15 +74,8 @@ public class DFS implements Serializable {
         long guid = md5("" + port);
         setGuid(guid);
         chord = new Chord(port, guid);
-        
-        System.out.println(Paths.get(guid+"/repository/"+md5("Metadata")));
-        
-        File f = new File(guid+"/repository/"+md5("Metadata"));
-        if(!f.exists()) { 
-        	Files.createDirectories(Paths.get(guid+"/repository/"+md5("Metadata")));
-        }
-        System.out.println(Paths.get(guid+"/repository/"+md5("Metadata")));
-        
+        Files.createDirectories(Paths.get(guid+"/repository/"));
+
     }
     public void setGuid(long Guid)
     {
@@ -145,7 +138,7 @@ public class DFS implements Serializable {
         File peerFile = metadataraw.getFile(); //gets the file
 
         
-        String fileName =  getGUID() + "/repository/"+guid+"/metadata.tep";
+        String fileName =  peer.getId() + "/repository/" + guid;
         System.out.println(fileName);
        
         File newFile = new File(fileName);
@@ -162,9 +155,11 @@ public class DFS implements Serializable {
  
     }catch(RemoteException e)
     {
+       System.out.println("1");
        return  metadata = new Metadata();
     
     }catch(FileNotFoundException e) {
+        System.out.println("2");
         return metadata = new Metadata();
     
     }
@@ -176,10 +171,11 @@ public class DFS implements Serializable {
     public void writeMetaData(Metadata metadata) throws Exception {
         try  {
             long guid = md5("Metadata"); //which process has that file
+            ChordMessageInterface process = chord.locateSuccessor(guid); //I know which node has the metadata
             
            //Following block is to write to localFile
           
-            String tempFile = getGUID() + "/repository/"+guid+"/metadata.tep";
+            String tempFile = process.getId() + "/repository/"+guid;
             System.out.println("Here is the file path: " + tempFile);
             File tempFile_file  = new File(tempFile);
 
@@ -198,7 +194,7 @@ public class DFS implements Serializable {
            }
         
            //chords put doesn't seem to put back into the cloud? how to fix
-            ChordMessageInterface process = chord.locateSuccessor(guid); //which process has that metadata
+        
             process.put(guid, new FileStream(tempFile));
             System.out.println("File was succesfully posted to FileSystem.");
         }  catch (FileNotFoundException e) {
@@ -334,7 +330,7 @@ public class DFS implements Serializable {
      * @param filepath
      * @throws Exception
      */
-    public void append(String filename) throws Exception
+    public void append(String filename, String localFile) throws Exception
     {
         // TODO: append data to fileName. If it is needed, add a new page.
         // Let guid be the last page in Metadata.filename
@@ -342,20 +338,24 @@ public class DFS implements Serializable {
         //peer.put(guid, data);
         // Write Metadata
         Metadata metadata = readMetaData(); //always read first when creating
-        long guid = md5("Metadata");
-        String localFile = getGUID() + "/repository/"+guid+"/metadata.tep";
-        // md5 the file
-        
-        guid = md5(localFile);
-        Page page = new Page(0, guid, 0);
-        metadata.getFile(filename).addPage(page);
+      
         File local_file  = new File(localFile);
+        if(local_file.exists())
+        {
+          System.out.println("I exist");
+         
+         guid = md5(localFile);
+         Page page = new Page(0, guid, 0);
+         metadata.getFile(filename).addPage(page);
 
-        guid = md5("Metadata");
+
         ChordMessageInterface peer = chord.locateSuccessor(guid);
         peer.put(guid, new FileStream(localFile));
         writeMetaData(metadata);
         System.out.println("Edits made I believe");
+        } else {
+            System.out.println("I don't exist");
+        }
     }
 
    
