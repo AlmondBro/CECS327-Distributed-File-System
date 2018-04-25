@@ -102,7 +102,7 @@ public class UserInterface {
                 case 0:
                     this.connectToDFS();
                 case 1:
-                    String fileList = this.getDFS().ls();
+                    String fileList = getDFS().ls();
                     System.out.println("The list of files are "+ fileList);
                     //user_input.close();
                     break;

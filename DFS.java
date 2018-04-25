@@ -120,8 +120,9 @@ public class DFS implements Serializable {
      * @throws Exception 
      */
     public void join(String ip, int port) throws Exception {
+        System.out.println("Joining method from the DFS class.");
         chord.joinRing(ip, port);
-        chord.Print();
+        //chord.Print();
     }
     
 
@@ -133,26 +134,33 @@ public class DFS implements Serializable {
        
         long guid = md5("Metadata"); 
         
-        ChordMessageInterface peer = chord.locateSuccessor(guid); //locate the processor that has the meatadata
-        FileStream metadataraw = peer.get(guid);    //locates the file  
+        ChordMessageInterface peer = chord.locateSuccessor(guid);
+        System.out.println("1:"+ peer.getId()); //locate the processor that has the meatadata
+        
+        FileStream metadataraw = peer.get(guid);
+        System.out.println("2");     //locates the file  
         File peerFile = metadataraw.getFile(); //gets the file
-
+        System.out.println("3"); 
         
         String fileName =  peer.getId() + "/repository/" + guid;
+        System.out.println("4"); 
         System.out.println(fileName);
+        System.out.println("5"); 
        
         File newFile = new File(fileName);
+        System.out.println("6"); 
         FileOutputStream output = new FileOutputStream(peerFile);
-
+        System.out.println("7"); 
         while (metadataraw.available() > 0)  {
             output.write(metadataraw.read());
         }   
         output.close();
-  
+        System.out.println("7"); 
  
         FileReader fileReader = new FileReader(new File(fileName));
+        System.out.println("8"); 
          metadata =  this.getGsonObject().fromJson(fileReader, Metadata.class); //Reads metadata
- 
+         System.out.println("9"); 
     }catch(RemoteException e)
     {
        System.out.println("1");

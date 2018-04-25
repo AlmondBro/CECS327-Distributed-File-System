@@ -129,7 +129,7 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
             ChordMessageInterface chord = (ChordMessageInterface)(registry.lookup("Chord"));
             predecessor = null;
             successor = chord.locateSuccessor(this.getId());
-            System.out.println("Joining ring");
+            System.out.println("Joining ring\n\n");
         }
         catch(RemoteException | NotBoundException e){
             successor = this;
