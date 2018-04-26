@@ -49,12 +49,10 @@ public class Client
             throw new IllegalArgumentException("Please supply a port parameter: <port>");
         }
         /* 
-            To compile, run:
+            To compile (on Linux), run:
                 javac -cp gson-2.8.2.jar Client.java Chord.java ChordMessageInterface.java DFS.java Metadata.java MetaFile.java Page.java UserInterface.java FileStream.java; java -classpath ".:gson-2.8.2.jar" Client 3000
         */
         Client client = new Client( Integer.parseInt(args[0]));
-        //hello();
         System.exit(0);
-        //Client client2 = new Client(Integer.parseInt(args[1]));
      } 
 }
