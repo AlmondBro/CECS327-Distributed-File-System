@@ -110,7 +110,7 @@ public class UserInterface {
                 case 2:
                     System.out.println("Please enter the file name:\t");
                     fileName = user_input.nextLine();
-                    System.out.println("You entered the file name:" + fileName);
+                    System.out.println("You entered the file name:\t" + fileName);
                     this.getDFS().touch(fileName);
                     //user_input.close();
                     break;

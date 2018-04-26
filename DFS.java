@@ -223,12 +223,16 @@ public class DFS implements Serializable {
      * @throws Exception
      */
     public void touch(String fileName) throws Exception {
-         // TODO: Create the file fileName by adding a new entry to the Metadata
-         // Write Metadata
+         // TODO: Create the file fileName by adding a new entry or writing to the Metadata
         Metadata metadata = readMetaData(); //always read first when creating
         //this.getGsonObject().toJson(metadata);
-        metadata.createFile(fileName);
-        this.writeMetaData(metadata);
+        if (metadata.checkIfFileExists(fileName) ) {
+            System.out.println("File already exists. Please try again to create a new file and enter another file name."); 
+            return;
+        } else {
+            metadata.createFile(fileName);
+            this.writeMetaData(metadata);
+        } //end else-statement
     }
 
      /**

@@ -7,8 +7,7 @@ public class MetaFile {
 	private ArrayList<Page> page;
 
 	
-	public MetaFile(String name, int numberOfPages, int pageSize, int size, ArrayList<Page> pages)
-	{
+	public MetaFile(String name, int numberOfPages, int pageSize, int size, ArrayList<Page> pages) {
 		this.name = name;
 		this.numberOfPages = numberOfPages;
 		this.pageSize = pageSize;

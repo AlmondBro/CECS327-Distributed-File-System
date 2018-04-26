@@ -31,30 +31,50 @@ public class Metadata {
 	}
 
 	
-	public void changeName(String oldName, String newName)
-	{
-		for(int i = 0; i < metafiles.size(); i++)
-		{
+	public void changeName(String oldName, String newName) {
+		for(int i = 0; i < metafiles.size(); i++) {
 			if(metafiles.get(i).getName().equals(oldName)) {
 				metafiles.get(i).setName(newName);
 			}
-				
 		}
 	}
-	public String getFileNames()
-	{
+
+	public String getFileNames() {
 		String fileNames = "";
-		for(int i = 0; i < metafiles.size(); i++)
-		{
+		for(int i = 0; i < metafiles.size(); i++) {
 			fileNames += "\n"+ "\t" + "#" + i +":\t" + metafiles.get(i).getName();
-		}
+		} //end for-loop
 		return fileNames;
-	}
+	} //end getFileNames() method
+
+	public boolean checkIfFileExists(String fileName) {
+		String currentFile; 
+		boolean fileExists = false;
+		for(int i = 0; i < metafiles.size(); i++) {
+			currentFile = metafiles.get(i).getName().trim();
+			//return ( (currentFile == fileName) ? true : false );
+			if (currentFile.equalsIgnoreCase(fileName.trim()) ) {
+				System.err.println("File" + fileName + "Exists");
+				fileExists = true;
+				return fileExists;
+			} //end-if-statement
+		} //end for-loop
+		System.out.println("File you want to create does not exist. Creating file!");
+		return fileExists;
+	} //end check
 	
 	public void createFile(String fileName) throws FileNotFoundException, IOException {
-		
-		MetaFile metafile = new MetaFile(fileName, 0, 0, 0, new ArrayList<Page>());
+		// checkIfFileExists(fileName); 
+		// boolean fileAlreadyExists = checkIfFileExists(fileName);
+		// if (fileAlreadyExists) {
+		// 	System.out.println("File already exists. Please try again to create a new file and enter another file name."); 
+		// 	return; 
+		// } 
+
+		//MetaFile metafile = new MetaFile(fileName, 0, 0, 0, new ArrayList<Page>());
+		MetaFile metafile = new MetaFile();
 		metafiles.add(metafile);
+		
 		/*ArrayList<Page> pages = new ArrayList<Page>();
 		File new_File = new File(fileName);
 		FileStream fileStream = new FileStream(fileName);
