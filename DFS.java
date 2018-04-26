@@ -245,9 +245,15 @@ public class DFS implements Serializable {
         Metadata metadata = readMetaData(); //always read first when creating
 
        // TODO: returns all the files in the Metadata
-        String listOfFiles = "";
-    	listOfFiles = metadata.getFileNames();
+        String listOfFiles;
+        listOfFiles = metadata.getFileNames();
+        if (listOfFiles == "" || listOfFiles == null) {
+            System.out.println("List of files is empty.");
+        }
+
         return listOfFiles;
+
+
        /*
         Metadata metadata = gson.fromJson(json, Metadata.class);
     	//listOfFiles = metadata.getFileNames();
