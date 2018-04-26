@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 public class MetaFile {
 	private String name;
-//	private int numberOfPages;
-//	private int pageSize;
-//	private int size;
+	private int numberOfPages;
+	private int pageSize;
+	private int size;
 	private ArrayList<Page> page;
 
 	
-/*	public MetaFile(String name, int numberOfPages, int pageSize, int size, ArrayList<Page> pages)
+	public MetaFile(String name, int numberOfPages, int pageSize, int size, ArrayList<Page> pages)
 	{
 		this.name = name;
 		this.numberOfPages = numberOfPages;
@@ -15,7 +15,7 @@ public class MetaFile {
 		this.size = size;
 		this.page = pages;
 
-	}*/
+	}
 	public MetaFile()
 	{
 		this.page = new ArrayList<Page>();

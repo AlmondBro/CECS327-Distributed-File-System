@@ -18,13 +18,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;;
 public class Metadata {
 
-	//private String name;
+	private String name;
 	private ArrayList<MetaFile> metafiles; 
 	
-/*	public Metadata(String name, ArrayList<MetaFile> metafiles) {
+	public Metadata(String name, ArrayList<MetaFile> metafiles) {
 		this.name = name;
 		this.metafiles = metafiles;
-	}*/
+	}
 
 	public Metadata() {
 		metafiles = new ArrayList<MetaFile>();	
