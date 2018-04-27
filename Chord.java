@@ -52,7 +52,6 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
         FileStream file = null;
         try {
             //May have to use a different. You pass a fileStream into Chord.put();
-            System.out.println("From chords get: "+guid+"/repository/" + guidObject);
              file = new FileStream(guid+"/repository/" + guidObject);
              //file = new FileStream("./"+guid+"/repository");
         } catch (IOException e)

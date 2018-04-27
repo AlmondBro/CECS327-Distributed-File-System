@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.io.*;
+import java.io.BufferedReader;
 public class UserInterface {
 
     private Scanner userInput;
@@ -124,7 +126,7 @@ public class UserInterface {
                     //user_input.close();
                     break;
 
-                case 4:
+                case 4: 
                     System.out.println("Please enter the file name");
                     fileName = user_input.nextLine();
 
@@ -133,9 +135,32 @@ public class UserInterface {
                     
                     int pageNum = user_input.nextInt();
                     System.out.println("You enter the page number: "+ pageNum);
-                    this.getDFS().read(fileName, pageNum);
-                    //user_input.close();
-                    break;
+                    FileStream in = this.getDFS().read(fileName, pageNum);
+                    int c;
+                    String line = "";
+                    while((c = in.read()) != -1)
+                    {
+                        char d = (char) c;
+                        System.out.print(""+ d);
+                    }
+            
+              
+               //     BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                    StringBuilder out = new StringBuilder();
+                //    String line;
+              //      line = reader.readLine();
+                  //  System.out.println(line);
+                 //   while((line = reader.readLine()) != null)
+                  //  {
+               //         System.out.println(line); 
+                 //      out.append(line);
+                  //  }
+                 //     System.out.println(out.toString());
+                 //     reader.close();
+                 //   System.out.println(c)
+                      
+                      in.close();
+                      break;
 
                 case 5:
                     System.out.println("Please enter the file name");
@@ -148,13 +173,12 @@ public class UserInterface {
                 case 6:
                     System.out.println("Please enter file name");
                     fileName =  user_input.nextLine();
-                    //System.out.println("You enter the name:" + fileName);
+                    System.out.println("You enter the name:" + fileName);
                     System.out.println("You enter the local file path");
                     filePath = user_input.nextLine();
-                    filePath = user_input.nextLine();
-                    System.out.println("You entered the local file path");
+                    System.out.println("You entered the local file path:"+ filePath);
 
-                    this.getDFS().append(fileName, "test" );
+                    this.getDFS().append(fileName, filePath );
                     break;
                        // don't remember what the second agrument is about for append
                 //  System.out.println("Please enter the page number");

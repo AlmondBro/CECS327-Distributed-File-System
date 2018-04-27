@@ -135,32 +135,31 @@ public class DFS implements Serializable {
         long guid = md5("Metadata"); 
         
         ChordMessageInterface peer = chord.locateSuccessor(guid);
-        System.out.println("1:"+ peer.getId()); //locate the processor that has the meatadata
-        
-        FileStream metadataraw = peer.get(guid);
-        System.out.println("2");     //locates the file  
+         //locate the processor that has the meatadata
+
+    
+
+        FileStream metadataraw = peer.get(guid);  //locates the file  
         File peerFile = metadataraw.getFile(); //gets the file
-        System.out.println("3"); 
+
         
         String fileName =  peer.getId() + "/repository/" + guid;
-        System.out.println("4"); 
+
         System.out.println(fileName);
-        System.out.println("5"); 
+    
        
         File newFile = new File(fileName);
-        System.out.println("6"); 
         FileOutputStream output = new FileOutputStream(peerFile);
-        System.out.println("7"); 
+ 
         while (metadataraw.available() > 0)  {
             output.write(metadataraw.read());
         }   
         output.close();
-        System.out.println("7"); 
+
  
         FileReader fileReader = new FileReader(new File(fileName));
-        System.out.println("8"); 
          metadata =  this.getGsonObject().fromJson(fileReader, Metadata.class); //Reads metadata
-         System.out.println("9"); 
+
     }catch(RemoteException e)
     {
        System.out.println("1");
@@ -292,11 +291,11 @@ public class DFS implements Serializable {
     public FileStream read(String fileName, int pageNumber) throws Exception {
         // TODO: read pageNumber from fileName
         Metadata metadata = readMetaData(); //always read first when creating
-        Page page = metadata.getFile(fileName).getPage(pageNumber);
-        
+        Page page = metadata.getFile(fileName).getPage(pageNumber-1);
+        System.out.println("Page number: " +page.getNumberofPage());
+        System.out.println("Read the file's page " + page.getGUID());
         ChordMessageInterface peer = chord.locateSuccessor(page.getGUID());
-        guid =md5("Metadata");
-        return peer.get(guid);
+        return peer.get(page.getGUID());
     	
     }
     
@@ -313,9 +312,9 @@ public class DFS implements Serializable {
         Metadata metadata = readMetaData(); //always read first when creating
 
         Page page = metadata.getFile(fileName).getLastPage();
-        
+        System.out.println("Page guid" +page.getGUID());
         ChordMessageInterface peer = chord.locateSuccessor(page.getGUID());
-        guid = md5("Metadata");
+  
         return peer.get(guid);
     }
 
@@ -345,19 +344,17 @@ public class DFS implements Serializable {
         File local_file  = new File(localFile);
         if(local_file.exists())
         {
-          System.out.println("I exist");
+          System.out.println("Reading correctly "+ localFile);
          
          guid = md5(localFile);
          Page page = new Page(0, guid, 0);
          metadata.getFile(filename).addPage(page);
-
-
-        ChordMessageInterface peer = chord.locateSuccessor(guid);
-        peer.put(guid, new FileStream(localFile));
+         ChordMessageInterface peer = chord.locateSuccessor(guid);
+         peer.put(guid, new FileStream(localFile));
         writeMetaData(metadata);
-        System.out.println("Edits made I believe");
+
         } else {
-            System.out.println("I don't exist");
+            System.out.println(localFile +" doesn't exist");
         }
     }
 
