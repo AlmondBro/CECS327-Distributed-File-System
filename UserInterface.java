@@ -81,6 +81,7 @@ public class UserInterface {
         System.out.println("To append enter 6:\t");
         System.out.println("To move enter 7:\t");
         System.out.println("To quit, enter 8:\t");
+        System.out.println("To head, enter 9:\t");
     } //end getCommandLineInterface()
 
     public void makingSelection() throws Exception {
@@ -203,7 +204,15 @@ public class UserInterface {
                     flag = false;
                     //user_input.close();
                     break;
+                case 9:
+                	System.out.println("Please enter the file name");
+                    fileName = user_input.nextLine();
 
+                    System.out.println("You entered the file name:" + fileName);
+                	
+                	this.getDFS().head(fileName);
+                	break;
+                	
                 default:
                     break;
             } //ends switch statement

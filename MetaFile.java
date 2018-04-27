@@ -14,11 +14,14 @@ public class MetaFile {
 		this.pageSize = pageSize;
 		this.size = size;
 		this.page = pages;
+		page.add(new Page(0, 0, 0));
 
 	}
 	public MetaFile()
 	{
 		this.page = new ArrayList<Page>();
+		page.add(new Page(0, 0, 0));
+		System.out.println("THE PAGE SIZE IS: " + page.size());
 	}
 	
 	public String getName()
