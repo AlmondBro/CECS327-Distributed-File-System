@@ -14,6 +14,10 @@ public class Page {
 	{
 		return this.number;
 	}
+	public int getLastPage()
+	{
+		return 0;
+	}
 
 	public long getGUID() {
 		return this.guid;

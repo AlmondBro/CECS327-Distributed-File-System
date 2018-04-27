@@ -37,6 +37,12 @@ public class MetaFile {
 		else
 			return page.get(pageNum);
 	}
+	public Page getLastPage()
+	{
+		int size  = page.size() -1;
+		System.out.println("" + size);
+		return page.get(size);
+	}
 	public void addPage(Page pageObject)
 	{
 		
@@ -50,10 +56,6 @@ public class MetaFile {
 		{
 			pageObject.setPage(1);
 		}
-	}
-	public Page getLastPage()
-	{
-		return page.get(page.size() - 1);
 	}
 	public Page getFirstPage()
 	{

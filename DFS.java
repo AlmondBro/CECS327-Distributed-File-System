@@ -310,12 +310,12 @@ public class DFS implements Serializable {
     public FileStream tail(String fileName) throws Exception
     {
         Metadata metadata = readMetaData(); //always read first when creating
-
+        
         Page page = metadata.getFile(fileName).getLastPage();
-        System.out.println("Page guid" +page.getGUID());
+        System.out.println("Read the file's page " +page.getGUID());
         ChordMessageInterface peer = chord.locateSuccessor(page.getGUID());
-  
-        return peer.get(guid);
+        System.out.println("Yes");
+        return peer.get(page.getGUID());
     }
 
      /**
@@ -327,7 +327,7 @@ public class DFS implements Serializable {
      */
     public FileStream head(String fileName) throws Exception
     {
-        return read(fileName, 0);
+        return read(fileName, 1);
     }
 
      /**

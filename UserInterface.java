@@ -80,7 +80,8 @@ public class UserInterface {
         System.out.println("To tail enter 5:\t");
         System.out.println("To append enter 6:\t");
         System.out.println("To move enter 7:\t");
-        System.out.println("To quit, enter 8:\t");
+        System.out.println("To head, enter 8:\t");
+        System.out.println("To quit, enter 9:\t");
     } //end getCommandLineInterface()
 
     public void makingSelection() throws Exception {
@@ -166,7 +167,15 @@ public class UserInterface {
                     System.out.println("Please enter the file name");
                     fileName = user_input.nextLine();
                     System.out.println("You enter the file name:" + fileName);
-                    this.getDFS().tail(fileName);
+                    FileStream in2 = this.getDFS().tail(fileName);
+                    int c2;
+                    String line2 = "";
+                    while((c2 = in2.read()) != -1)
+                    {
+                        char d2= (char) c2;
+                        System.out.print(""+ d2);
+                    }
+                    in2.close();
                     //user_input.close();
                     break;
 
@@ -197,8 +206,23 @@ public class UserInterface {
                     this.getDFS().mv(fileName, fileName2);
                     //user_input.close();
                     break;
-                    
-                case 8:
+                case 8:  
+                    System.out.println("Please enter the file name");
+                    fileName = user_input.nextLine();
+                    System.out.println("You enter the file name:" + fileName);
+                    FileStream in3 = this.getDFS().head(fileName);
+                    int c3;
+                    String line3 = "";
+                while((c3 = in3.read()) != -1)
+                {
+                    char d3= (char) c3;
+                    System.out.print(""+ d3);
+                }
+                in3.close();
+                //user_input.close();
+                break;
+                
+                case 9:
                     System.out.println("\nExiting...see you later alligator!");
                     flag = false;
                     //user_input.close();
