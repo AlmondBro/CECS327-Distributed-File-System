@@ -55,7 +55,6 @@ public class DFS implements Serializable {
     private Gson gson;
     private String json;
     private FileStream filestream;
-    //private Metadata metadata;
     private String listOfFiles;
 
     private File metafile_physicalFile;
@@ -120,7 +119,6 @@ public class DFS implements Serializable {
      * @throws Exception 
      */
     public void join(String ip, int port) throws Exception {
-        System.out.println("Joining method from the DFS class.");
         chord.joinRing(ip, port);
         //chord.Print();
     }
@@ -145,7 +143,7 @@ public class DFS implements Serializable {
         
         String fileName =  peer.getId() + "/repository/" + guid;
 
-        System.out.println(fileName);
+        System.out.println(fileName); //check the filepath for debugging
     
        
         File newFile = new File(fileName);
@@ -162,11 +160,11 @@ public class DFS implements Serializable {
 
     }catch(RemoteException e)
     {
-       System.out.println("1");
+    //   System.out.println("1"); debugging print
        return  metadata = new Metadata();
     
     }catch(FileNotFoundException e) {
-        System.out.println("2");
+      //  System.out.println("2"); debugging print
         return metadata = new Metadata();
     
     }
@@ -190,7 +188,7 @@ public class DFS implements Serializable {
            //the existing the Metadata with just he new file 
            if(tempFile_file.exists())
            {
-             System.out.println("I exist");
+             System.out.println("File: exist");
              FileWriter writer = new FileWriter(tempFile_file);
              gson.toJson(metadata, writer);
              writer.close();
@@ -205,7 +203,7 @@ public class DFS implements Serializable {
             process.put(guid, new FileStream(tempFile));
             System.out.println("File was succesfully posted to FileSystem.");
         }  catch (FileNotFoundException e) {
-            System.out.println("Stack Trace Message:\t");
+            System.out.println("File: Does not exist (DFS.writeMedata");
             e.printStackTrace();;
 
         }
@@ -292,8 +290,8 @@ public class DFS implements Serializable {
         // TODO: read pageNumber from fileName
         Metadata metadata = readMetaData(); //always read first when creating
         Page page = metadata.getFile(fileName).getPage(pageNumber-1);
-        System.out.println("Page number: " +page.getNumberofPage());
-        System.out.println("Read the file's page " + page.getGUID());
+   //     System.out.println("Page number: " +page.getNumberofPage()); debugging prints
+   //     System.out.println("Read the file's page " + page.getGUID()); debugging pints
         ChordMessageInterface peer = chord.locateSuccessor(page.getGUID());
         return peer.get(page.getGUID());
     	

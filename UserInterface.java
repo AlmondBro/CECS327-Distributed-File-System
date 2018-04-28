@@ -2,6 +2,11 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.io.*;
 import java.io.BufferedReader;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
+import java.nio.file.Path;
 public class UserInterface {
 
     private Scanner userInput;
@@ -137,28 +142,14 @@ public class UserInterface {
                     int pageNum = user_input.nextInt();
                     System.out.println("You enter the page number: "+ pageNum);
                     FileStream in = this.getDFS().read(fileName, pageNum);
-                    int c;
-                    String line = "";
-                    while((c = in.read()) != -1)
-                    {
-                        char d = (char) c;
-                        System.out.print(""+ d);
-                    }
-            
-              
-               //     BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                    StringBuilder out = new StringBuilder();
-                //    String line;
-              //      line = reader.readLine();
-                  //  System.out.println(line);
-                 //   while((line = reader.readLine()) != null)
-                  //  {
-               //         System.out.println(line); 
-                 //      out.append(line);
-                  //  }
-                 //     System.out.println(out.toString());
-                 //     reader.close();
-                 //   System.out.println(c)
+                    File File = in.getFile();   
+                    File.getAbsolutePath(); 
+                    System.out.println("Files path: " + File.getAbsolutePath());
+                    String text = "" +      File.getAbsolutePath(); 
+                    Path path = Paths.get(text);       
+                    byte[] bytes = Files.readAllBytes(path);
+                    String  text2 = new String(bytes, StandardCharsets.UTF_8);
+                    System.out.println("Files contents: " + text2);
                       
                       in.close();
                       break;
@@ -168,15 +159,16 @@ public class UserInterface {
                     fileName = user_input.nextLine();
                     System.out.println("You enter the file name:" + fileName);
                     FileStream in2 = this.getDFS().tail(fileName);
-                    int c2;
-                    String line2 = "";
-                    while((c2 = in2.read()) != -1)
-                    {
-                        char d2= (char) c2;
-                        System.out.print(""+ d2);
-                    }
+                    File File2 = in2.getFile();   
+                    File2.getAbsolutePath(); 
+                    System.out.println("Files path: " + File2.getAbsolutePath());
+                    String text3 = "" +      File2.getAbsolutePath(); 
+                    Path path2 = Paths.get(text3);       
+                    byte[] bytes2 = Files.readAllBytes(path2);
+                    String  text4 = new String(bytes2, StandardCharsets.UTF_8);
+                    System.out.println("Files contents: " + text4);
                     in2.close();
-                    //user_input.close();
+                 
                     break;
 
                 case 6:
@@ -186,16 +178,9 @@ public class UserInterface {
                     System.out.println("You enter the local file path");
                     filePath = user_input.nextLine();
                     System.out.println("You entered the local file path:"+ filePath);
-
                     this.getDFS().append(fileName, filePath );
                     break;
-                       // don't remember what the second agrument is about for append
-                //  System.out.println("Please enter the page number");
-            //   int pageNum =  user_input.nextInt();
-                // System.out.println("You enter the page number: "+ pageNum);
-                //  dfs.append(fileName, pageNum);
-                    //user_input.close();
-
+          
                 case 7:
                     System.out.println("Please enter the file name");
                     fileName =  user_input.nextLine();
@@ -211,35 +196,29 @@ public class UserInterface {
                     fileName = user_input.nextLine();
                     System.out.println("You enter the file name:" + fileName);
                     FileStream in3 = this.getDFS().head(fileName);
-                    int c3;
-                    String line3 = "";
-                while((c3 = in3.read()) != -1)
-                {
-                    char d3= (char) c3;
-                    System.out.print(""+ d3);
-                }
-                in3.close();
-                //user_input.close();
+                    File File3 = in3.getFile();   
+                    File3.getAbsolutePath(); 
+                    System.out.println("Files path: " + File3.getAbsolutePath());
+                    String text5 = "" +      File3.getAbsolutePath(); 
+                    Path path3 = Paths.get(text5);       
+                    byte[] bytes3 = Files.readAllBytes(path3);
+                    String  text6 = new String(bytes3, StandardCharsets.UTF_8);
+                    System.out.println("Files contents: " + text6);
+                    in3.close();
                 break;
                 
                 case 9:
                     System.out.println("\nExiting...see you later alligator!");
                     flag = false;
-                    //user_input.close();
                     break;
 
                 default:
                     break;
             } //ends switch statement
-            //user_input.close();
+
             if (flag == false) {
                 return;
             }
-          /* try {
-        
-            } catch (InputMismatchException inputMismatch) {
-                System.err.println("\nPlease enter a number for your selection choice.");
-            }  */
             
         } //ends while (implement way to quit while)
   

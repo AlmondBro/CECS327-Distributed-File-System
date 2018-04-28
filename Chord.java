@@ -35,15 +35,14 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
     public void put(long guidObject, FileStream stream) throws RemoteException {
       try {
           String fileName = guid+"/repository/" + guidObject;
-          System.out.println("Path: " + fileName);
-          //String fileName = guid+"/repository/" + guidObject;
+       //   System.out.println("Path: " + fileName); debugging print
           FileOutputStream output = new FileOutputStream(fileName);
           while (stream.available() > 0)
               output.write(stream.read());
           output.close();
       }
       catch (IOException e) {
-          System.out.println("Not writing to the chord");
+          System.out.println("File does not exist (chord.put())");
       }
     }
     
@@ -57,7 +56,7 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
         } catch (IOException e)
         {
            
-            throw(new RemoteException("File does not exists"));
+            throw(new RemoteException("File does not exists (chord.get())"));
        
         }
      
@@ -131,6 +130,7 @@ public class Chord extends java.rmi.server.UnicastRemoteObject implements ChordM
             System.out.println("Joining ring\n\n");
         }
         catch(RemoteException | NotBoundException e){
+            System.out.println("Client did not join");
             successor = this;
         }   
     }
