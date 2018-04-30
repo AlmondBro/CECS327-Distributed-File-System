@@ -25,12 +25,18 @@ public class Metadata {
 		this.name = name;
 		this.metafiles = metafiles;
 	}*/
-
+	/**
+	 * The constructor of the Metadata class.
+	 * This constructor does not take any arguments.
+	 */
 	public Metadata() {
 		metafiles = new ArrayList<MetaFile>();	
 	}
 
-	
+	/**
+	 * Renames the metadata's name with a new one.
+	 * @param newname
+	 */
 	public void changeName(String oldName, String newName)
 	{
 		for(int i = 0; i < metafiles.size(); i++)
@@ -41,6 +47,11 @@ public class Metadata {
 				
 		}
 	}
+	/**
+	 * Returns a list of all of the file's names
+	 * in the form of a string.
+	 * @return
+	 */
 	public String getFileNames()
 	{
 		String fileNames = "";
@@ -50,7 +61,10 @@ public class Metadata {
 		}
 		return fileNames;
 	}
-	
+	/**
+	 * Creates a file with the given filename.
+	 * @param fileName
+	 */
 	public void createFile(String fileName) throws FileNotFoundException, IOException {
 		
 		MetaFile metafile = new MetaFile(fileName, 0, 0, 0, new ArrayList<Page>());
@@ -63,7 +77,12 @@ public class Metadata {
 		MetaFile newFile = new MetaFile(fileStream.getFile().getPath(), 0, 0, fileStream.getSize(), pages);
 		metafiles.add(newFile); */
 	}
-
+	/**
+	 * Returns a specific file using the filename inputed.
+	 * @param fileName
+	 * @return file
+	 * @throws Exception
+	 */
 	public MetaFile getFile(String fileName) throws Exception {
 		for(int i = 0; i < metafiles.size(); i++)
 		{
@@ -72,7 +91,10 @@ public class Metadata {
 		}
 		throw new Exception("A file with that name does not exist!");
 	}
-
+	/**
+	 * Deletes the given file in the metadata.
+	 * @param fileName
+	 */
 	public void delete(String fileName)
 	{
 		for(int i = 0; i < metafiles.size(); i++)
@@ -81,15 +103,23 @@ public class Metadata {
 				 metafiles.remove(i);
 		}
 	}
-
+	/**
+	 * Appends a file to the end of the metadata.
+	 * @param name
+	 * @param localFile
+	 */
 	public void append(String name, String localFile) {
 		
 	}
-
+	/**
+	 * Converts the metadata to a json string
+	 */
 	public void toJson() {
 
 	}
-
+	/**
+	 * Converts a json string into a metadata object.
+	 */
 	public void readfromJSON() {
 	
 	}

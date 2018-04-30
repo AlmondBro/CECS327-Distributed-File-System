@@ -14,50 +14,83 @@ public class UserInterface {
     private String IP_Address;
     private int port;
     private DFS distributedFileSystem;
-
+    
+    /**
+     * Constructor for the Userinterface.
+     * Requies a DFS object.
+     * @param distributedFileSystem
+     */
     public UserInterface(DFS distributedFileSystem) {
         userInput = new Scanner(System.in);
         this.distributedFileSystem = distributedFileSystem;
     } //end UserInterface() constructor
-
+    /**
+     * Returns the scanner object.
+     * @return scanner
+     */
     public Scanner getScanner() {
         return this.userInput;
     }
-
+    /**
+     * Returns the user's selection value.
+     * @return userselection
+     */
     public int getUserSelectionValue() {
         return this.userSelectionValue;
     }
-
+    /**
+     * Returns the ip address used.
+     * @return ipaddress
+     */
     public String getIPAddress() {
         return this.IP_Address;
     }
-
+    /**
+     * Returns the port used.
+     * @return port
+     */
     public int getPort() {
         return this.port;
     }
-
+    /**
+     * Returns the global DFS object used.
+     * @return dfs
+     */
     public DFS getDFS() {
         return this.distributedFileSystem;
     }
-
+    /**
+     * Returns the IP address in use.
+     * @param newIPAddress
+     */
     public void setIPAddress(String newIPAddress) {
        this.IP_Address = newIPAddress; 
     }
-
+    /**
+     * Sets the port number with a new one.
+     * @param newPort
+     */
     public void setPort(int newPort) {
         this.port = newPort;
     }
-
+    /**
+     * Sets the user's selection value with a new integer.
+     * @param newUserSelectionValue
+     */
     public void setUserSelectionValue(int newUserSelectionValue) {
         this.userSelectionValue = newUserSelectionValue;
     }
-
+    /**
+     * Returns the welcome message.
+     */
     public void welcomeMessage() {
           //Use InputStream classes instead 
           System.out.println("\nWelcome");
           //System.out.println("To join the distributed file system.");
     }
-
+    /**
+     * Creates a connection with the DFS object.
+     */
     public void connectToDFS() throws InputMismatchException, Exception {
         Scanner user_input = new Scanner(System.in);
 
@@ -74,7 +107,9 @@ public class UserInterface {
             this.getDFS().join(this.getIPAddress(), this.getPort());            
         } //end if-statement
     } //end 
-
+    /**
+     * Prints the command line interface to the console.
+     */
     public void getCommandLineInterface() {
         System.out.println("\nPlease make a selection");
         System.out.println("\nTo join the DFS, enter 0:\t");
@@ -88,7 +123,11 @@ public class UserInterface {
         System.out.println("To head, enter 8:\t");
         System.out.println("To quit, enter 9:\t");
     } //end getCommandLineInterface()
-
+    /**
+     * Runs the user interface and 
+     * takes the user's input.
+     * @throws Exception
+     */
     public void makingSelection() throws Exception {
         Scanner user_input = new Scanner(System.in);
         boolean flag = true;
