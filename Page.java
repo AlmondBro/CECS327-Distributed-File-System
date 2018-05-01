@@ -30,8 +30,7 @@ public class Page {
 	 * Returns the last page
 	 * @return the index of the page
 	 */
-	public int getLastPage()
-	{
+	public int getLastPage() {
 		return 0;
 	}
 	/**
@@ -41,9 +40,10 @@ public class Page {
 	public long getGUID() {
 		return this.guid;
 	}
+
 	/**
 	 * Returns the size of the page
-	 * @return size
+	 * @return size of the page.
 	 */
 	public long getSize() {
 		return this.getSize();

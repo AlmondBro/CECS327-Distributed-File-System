@@ -305,15 +305,29 @@ public class DFS implements Serializable {
      * @return Filestream
      * @throws Exception
      */
-    public FileStream tail(String fileName) throws Exception
-    {
-        Metadata metadata = readMetaData(); //always read first when creating
+    public FileStream tail(String fileName) throws Exception, RemoteException, IOException, NullPointerException {
+        FileStream tail = null;
+        try {
+            Metadata metadata = readMetaData(); //always read first when creating
         
-        Page page = metadata.getFile(fileName).getLastPage();
-        System.out.println("Read the file's page " +page.getGUID());
-        ChordMessageInterface peer = chord.locateSuccessor(page.getGUID());
-        System.out.println("Yes");
-        return peer.get(page.getGUID());
+            Page page = metadata.getFile(fileName).getLastPage();
+            System.out.println("\nRead the file's page:\t" + page.getGUID());
+            ChordMessageInterface peer = chord.locateSuccessor(page.getGUID());
+            //return peer.get(page.getGUID());
+            tail = peer.get(page.getGUID());
+        }
+        catch (NullPointerException e) {
+            System.out.println("\nNullPointerException. File does not exist -- creating file instead.");
+            this.touch(fileName);
+
+            Metadata metadata = readMetaData(); //always read first when creating
+        
+            Page page = metadata.getFile(fileName).getLastPage();
+            System.out.println("\nRead the file's page:\t" + page.getGUID());
+            ChordMessageInterface peer = chord.locateSuccessor(page.getGUID());
+            tail = peer.get(page.getGUID());
+        }
+        return tail;
     }
 
      /**
@@ -335,26 +349,22 @@ public class DFS implements Serializable {
      * @param filepath
      * @throws Exception
      */
-    public void append(String filename, String localFile) throws Exception
-    {
+    public void append(String filename, String localFile) throws Exception {
         Metadata metadata = readMetaData(); //always read first when creating
       
         File local_file  = new File(localFile);
-        if(local_file.exists())
-        {
-          System.out.println("Reading correctly "+ localFile);
+        if(local_file.exists()) {
+         System.out.println("\nAttempting to append file:\t "+ localFile);
          
          guid = md5(localFile);
          Page page = new Page(0, guid, 0);
          metadata.getFile(filename).addPage(page);
          ChordMessageInterface peer = chord.locateSuccessor(guid);
          peer.put(guid, new FileStream(localFile));
-        writeMetaData(metadata);
+         writeMetaData(metadata);
 
         } else {
-            System.out.println(localFile +" doesn't exist");
+            System.out.println("\n" + localFile +" doesn't not exist");
         }
-    }
-
-   
-}
+    } //end append() method
+} //end DFS.java class

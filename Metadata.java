@@ -59,7 +59,7 @@ public class Metadata {
 		}
 
 		if (fileNames == "" || fileNames == null ) {
-			String message = "\nList of files are empty";
+			String message = "\n\tList of files are empty";
 			return message;
 		}	
 		return fileNames;
@@ -86,14 +86,22 @@ public class Metadata {
 	 * @return file
 	 * @throws Exception
 	 */
-	public MetaFile getFile(String fileName) throws Exception {
-		for(int i = 0; i < metafiles.size(); i++)
-		{
-			if(metafiles.get(i).getName().equals(fileName))
-				return metafiles.get(i);
+	public MetaFile getFile(String fileName) {
+		MetaFile metafile = null;
+		for(int i = 0; i < metafiles.size(); i++) {
+			if(metafiles.get(i).getName().equals(fileName)) {
+				metafile = metafiles.get(i);
+				//return metafiles.get(i);
+			} //end if-statement.
+		} //end for loop
+		
+		if (metafile == null) {
+			System.out.println("A file with that name does not exist.");
 		}
-		throw new Exception("A file with that name does not exist!");
-	}
+
+		return metafile;
+		//throw new Exception("A file with that name does not exist!");
+	} //end getFile() method
 
 	/**
 	 * Deletes the given file in the metadata.
