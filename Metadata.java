@@ -50,15 +50,18 @@ public class Metadata {
 	/**
 	 * Returns a list of all of the file's names
 	 * in the form of a string.
-	 * @return
+	 * @return fileNames the string of all the files' names
 	 */
-	public String getFileNames()
-	{
+	public String getFileNames(){
 		String fileNames = "";
-		for(int i = 0; i < metafiles.size(); i++)
-		{
-			fileNames = fileNames + metafiles.get(i).getName();
+		for(int i = 0; i < metafiles.size(); i++) {
+			fileNames += "\n\t" + "#" + (i+1) + ":\t" + metafiles.get(i).getName();
 		}
+
+		if (fileNames == "" || fileNames == null ) {
+			String message = "\nList of files are empty";
+			return message;
+		}	
 		return fileNames;
 	}
 	/**
@@ -91,18 +94,19 @@ public class Metadata {
 		}
 		throw new Exception("A file with that name does not exist!");
 	}
+
 	/**
 	 * Deletes the given file in the metadata.
-	 * @param fileName
+	 * @param fileName is the name of the file you wish to delete.
 	 */
-	public void delete(String fileName)
-	{
+	public void delete(String fileName) {
 		for(int i = 0; i < metafiles.size(); i++)
 		{
 			if(metafiles.get(i).getName().equals(fileName))
 				 metafiles.remove(i);
 		}
 	}
+
 	/**
 	 * Appends a file to the end of the metadata.
 	 * @param name
@@ -111,6 +115,7 @@ public class Metadata {
 	public void append(String name, String localFile) {
 		
 	}
+
 	/**
 	 * Converts the metadata to a json string
 	 */

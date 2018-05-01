@@ -150,7 +150,7 @@ public class UserInterface {
                     this.connectToDFS();
                 case 1:
                     String fileList = getDFS().ls();
-                    System.out.println("The list of files are "+ fileList);
+                    System.out.println("\nThe list of files are:\t"+ fileList);
                     //user_input.close();
                     break;
                     
@@ -184,13 +184,14 @@ public class UserInterface {
                     File File = in.getFile();   
                     File.getAbsolutePath(); 
                     System.out.println("Files path: " + File.getAbsolutePath());
-                    String text = "" +      File.getAbsolutePath(); 
+                    String text = "" + File.getAbsolutePath(); 
                     Path path = Paths.get(text);       
                     byte[] bytes = Files.readAllBytes(path);
                     String  text2 = new String(bytes, StandardCharsets.UTF_8);
                     System.out.println("Files contents: " + text2);
                       
                       in.close();
+                      user_input = new Scanner(System.in);
                       break;
 
                 case 5:
