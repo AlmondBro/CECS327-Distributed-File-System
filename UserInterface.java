@@ -135,13 +135,8 @@ public class UserInterface {
         String filePath;
         String fileName;
 
-        try {
-            while(flag = true) {
-                /* try {
-    
-                } catch (NumberFormatException e) {
-    
-                } */
+        while(flag = true) {
+             try {
                 this.getCommandLineInterface();
     
                 int userChoice = Integer.parseInt(user_input.nextLine()); 
@@ -268,12 +263,12 @@ public class UserInterface {
                 if (flag == false) {
                     return;
                 }
+            } catch (NumberFormatException e) {
+                System.out.println("\nPlease enter a number from 0 - 9.");
+            } //end catch-block
+               
                 
             } //ends while (implement way to quit while)
-        } catch (NumberFormatException e) {
-            System.out.println("Please enter a number from 0 - 9.");
-        }
-       
   
     } //end makingSelection() method
   
