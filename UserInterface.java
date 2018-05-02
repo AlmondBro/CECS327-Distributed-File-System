@@ -33,7 +33,7 @@ public class UserInterface {
     }
     /**
      * Returns the user's selection value.
-     * @return userselection
+     * @return this.userSelectionValue
      */
     public int getUserSelectionValue() {
         return this.userSelectionValue;
@@ -111,24 +111,27 @@ public class UserInterface {
      * Prints the command line interface to the console.
      */
     public void getCommandLineInterface() {
-        System.out.println("\nPlease make a selection");
+        System.out.println("------------------------------------");
         System.out.println("\nTo join the DFS, enter 0:\t");
         System.out.println("To ls (list the files) enter 1:\t");
         System.out.println("To touch (create a file) enter 2:\t");
         System.out.println("To delete enter 3:\t");
         System.out.println("To read enter 4:\t");
         System.out.println("To tail enter 5:\t");
-        System.out.println("To append enter 6:\t");
+        System.out.println("To append (add a page to a file) enter 6:\t");
         System.out.println("To move enter 7:\t");
         System.out.println("To head, enter 8:\t");
         System.out.println("To quit, enter 9:\t");
+        System.out.println("------------------------------------\n");
+        System.out.println("Please make a selection:\t");
+       
     } //end getCommandLineInterface()
     /**
      * Runs the user interface and 
      * takes the user's input.
-     * @throws Exception
+     * @throws NumberFormatException
      */
-    public void makingSelection() throws Exception, NumberFormatException {
+    public void makingSelection() throws Exception, NumberFormatException, InputMismatchException, NullPointerException {
         
         Scanner user_input = new Scanner(System.in);
         boolean flag = true;
@@ -154,7 +157,6 @@ public class UserInterface {
                     case 2:
                         System.out.println("Please enter the file name:\t");
                         fileName = user_input.nextLine();
-                        System.out.println("You entered the file name:" + fileName);
                         this.getDFS().touch(fileName);
                         //user_input.close();
                         break;
@@ -196,7 +198,7 @@ public class UserInterface {
                           break;
     
                     case 5:
-                        System.out.println("Please enter the file name to appebd to.");
+                        System.out.println("Please enter the file name you wish to see its tail page.");
                         fileName = user_input.nextLine();
     
                         FileStream in2 = this.getDFS().tail(fileName);
@@ -253,6 +255,7 @@ public class UserInterface {
                     
                     case 9:
                         System.out.println("\nExiting...see you later alligator!");
+                        user_input.close();
                         flag = false;
                         break;
     
@@ -262,14 +265,15 @@ public class UserInterface {
     
                 if (flag == false) {
                     return;
-                }
+                } //end if-statement
             } catch (NumberFormatException e) {
-                System.out.println("\nPlease enter a number from 0 - 9.");
-            } //end catch-block
-               
-                
-            } //ends while (implement way to quit while)
-  
+                System.out.println("\nPlease enter a number from 0 - 9. Do not enter words or strings.");
+            } catch (InputMismatchException e) { 
+                System.out.println("\nPlease enter a number from 0 - 9. Do not enter words or strings.");
+            } catch(NullPointerException e) {
+                System.out.println("A file or page you are trying to reach is null or does not exist! Try to recreate it using one of the options above.");
+            }//end catch-block 
+        } //ends while (implement way to quit while)
     } //end makingSelection() method
   
 } //end UserInterface() class

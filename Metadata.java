@@ -60,7 +60,7 @@ public class Metadata {
 
 		if (fileNames == "" || fileNames == null ) {
 			String message = "\n\tList of files are empty";
-			return message;
+			fileNames =  message;
 		}	
 		return fileNames;
 	}
@@ -69,17 +69,21 @@ public class Metadata {
 	 * @param fileName
 	 */
 	public void createFile(String fileName) throws FileNotFoundException, IOException {
+		for(int i = 0; i < metafiles.size(); i++) {
+			if ( metafiles.get(i).getName().equals(fileName) ) {
+				System.out.println("A file with that name already exists!");
+				return;
+			} //end if-statement
+			else {
+				System.out.println("Writing new Metafile...");
+				MetaFile metafile = new MetaFile(fileName, 0, 0, 0, new ArrayList<Page>());
+				metafiles.add(metafile);
+			}
+		} //end for loop
+
 		
-		MetaFile metafile = new MetaFile(fileName, 0, 0, 0, new ArrayList<Page>());
-		metafiles.add(metafile);
-		/*ArrayList<Page> pages = new ArrayList<Page>();
-		File new_File = new File(fileName);
-		FileStream fileStream = new FileStream(fileName);
-		fileStream.setFile(new_File);
-		//(String name, int numberOfPages, int pageSize, int size, ArrayList<Page> pages)
-		MetaFile newFile = new MetaFile(fileStream.getFile().getPath(), 0, 0, fileStream.getSize(), pages);
-		metafiles.add(newFile); */
-	}
+	} //end createFile() method
+
 	/**
 	 * Returns a specific file using the filename inputed.
 	 * @param fileName
@@ -96,11 +100,10 @@ public class Metadata {
 		} //end for loop
 		
 		if (metafile == null) {
-			System.out.println("A file with that name does not exist.");
+			System.out.println("A file with that name does not exist. Returning a null file.");
 		}
 
 		return metafile;
-		//throw new Exception("A file with that name does not exist!");
 	} //end getFile() method
 
 	/**
@@ -108,12 +111,18 @@ public class Metadata {
 	 * @param fileName is the name of the file you wish to delete.
 	 */
 	public void delete(String fileName) {
-		for(int i = 0; i < metafiles.size(); i++)
-		{
-			if(metafiles.get(i).getName().equals(fileName))
-				 metafiles.remove(i);
-		}
-	}
+		boolean duplicateFlag = false;
+		for(int i = 0; i < metafiles.size(); i++) {
+			if(metafiles.get(i).getName().equals(fileName)) {
+				metafiles.remove(i);
+				duplicateFlag = true;
+				System.out.println("Removed file: " + fileName + "\t");
+			} 		 
+		}  //end for-loop
+		if (duplicateFlag = false) {
+			System.out.println("File you wish to delete actually does not exist!");
+		} //end else-statement
+	} //end delete() 
 
 	/**
 	 * Appends a file to the end of the metadata.

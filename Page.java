@@ -11,8 +11,7 @@ public class Page {
 	 * @param guid
 	 * @param size
 	 */
-	public Page(int number, long guid, long size)
-	{
+	public Page(int number, long guid, long size) {
 		this.number = number;
 		this.guid = guid;
 		this.size = size;
@@ -22,10 +21,10 @@ public class Page {
 	 * Returns the page's number.
 	 * @return
 	 */
-	public int getNumberofPage()
-	{
+	public int getNumberofPage() {
 		return this.number;
 	}
+
 	/**
 	 * Returns the last page
 	 * @return the index of the page
@@ -33,6 +32,7 @@ public class Page {
 	public int getLastPage() {
 		return 0;
 	}
+
 	/**
 	 * Returns the page's GUID
 	 * @return guid
@@ -54,5 +54,19 @@ public class Page {
 	 */
 	public void setPage(int number) {
 		this.number = number;
+	}
+
+	/**
+	 * incrementPageNo() increases the page number by 1.
+	 */
+	public void incrementPageNo() {
+		this.number = this.number + 1;
+	}
+
+	/**
+	 * decrementPageNo() decreases the page number by 1.
+	 */
+	public void decrementPageNo() {
+		this.number = this.number - 1;
 	}
 }

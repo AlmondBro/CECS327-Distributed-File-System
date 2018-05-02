@@ -181,14 +181,10 @@ public class DFS implements Serializable {
            //Following block is to write to localFile
           
             String tempFile = process.getId() + "/repository/"+guid;
-            System.out.println("Here is the file path: " + tempFile);
+            //System.out.println("\nHere is the file path:\t" + tempFile);
             File tempFile_file  = new File(tempFile);
 
-           //felt we need update the existing local Metadata but writer will override 
-           //the existing the Metadata with just he new file 
-           if(tempFile_file.exists())
-           {
-             System.out.println("File: exist");
+           if(tempFile_file.exists()) {
              FileWriter writer = new FileWriter(tempFile_file);
              gson.toJson(metadata, writer);
              writer.close();
@@ -201,11 +197,10 @@ public class DFS implements Serializable {
            //chords put doesn't seem to put back into the cloud? how to fix
         
             process.put(guid, new FileStream(tempFile));
-            System.out.println("File was succesfully posted to FileSystem.");
+            System.out.println("\nUpdating metadata by calling the writeMetadata() method.");
         }  catch (FileNotFoundException e) {
             System.out.println("File: Does not exist (DFS.writeMedata");
             e.printStackTrace();;
-
         }
      
     }
@@ -223,7 +218,7 @@ public class DFS implements Serializable {
          // TODO: Create the file fileName by adding a new entry to the Metadata
          // Write Metadata
         Metadata metadata = readMetaData(); //always read first when creating
-        //this.getGsonObject().toJson(metadata);
+        
         metadata.createFile(fileName);
         this.writeMetaData(metadata);
     }
@@ -272,7 +267,7 @@ public class DFS implements Serializable {
         //     peer = chord.locateSuccessor(page.guid);
         //     peer.delete(page.guid)
         // delete Metadata.filename
-            Metadata metadata = readMetaData(); //always read first when creating
+           Metadata metadata = readMetaData(); //always read first when creating
            metadata.delete(fileName);
            writeMetaData(metadata);
         // Write Metadata    	
@@ -286,16 +281,23 @@ public class DFS implements Serializable {
      * @return
      * @throws Exception
      */
-    public FileStream read(String fileName, int pageNumber) throws Exception {
+    public FileStream read(String fileName, int pageNumber) throws Exception, NullPointerException {
         // TODO: read pageNumber from fileName
-        Metadata metadata = readMetaData(); //always read first when creating
-        Page page = metadata.getFile(fileName).getPage(pageNumber-1);
-   //     System.out.println("Page number: " +page.getNumberofPage()); debugging prints
-   //     System.out.println("Read the file's page " + page.getGUID()); debugging pints
-        ChordMessageInterface peer = chord.locateSuccessor(page.getGUID());
-        return peer.get(page.getGUID());
-    	
-    }
+        FileStream fileStream = null;
+        try {
+            Metadata metadata = readMetaData(); //always read first when creating
+            Page page = metadata.getFile(fileName).getPage(pageNumber-1);
+       //     System.out.println("Page number: " +page.getNumberofPage()); debugging prints
+       //     System.out.println("Read the file's page " + page.getGUID()); debugging pints
+            ChordMessageInterface peer = chord.locateSuccessor(page.getGUID());
+            fileStream = peer.get(page.getGUID());
+        } catch(NullPointerException e) {
+            System.out.println("\nThe file or page you are trying to read does not exist or is null. Returning an empty filestream.");
+            fileStream = new FileStream();
+        }
+       
+        return fileStream;
+    } //end read() method
     
     
      /**
@@ -317,8 +319,13 @@ public class DFS implements Serializable {
             tail = peer.get(page.getGUID());
         }
         catch (NullPointerException e) {
+            //TODO: Implement adding a page.
             System.out.println("\nNullPointerException. File does not exist -- creating file instead.");
             this.touch(fileName);
+
+            //File localFile = new File(fileName);
+            String localFile = "localFile";
+            this.append(fileName, localFile);
 
             Metadata metadata = readMetaData(); //always read first when creating
         
@@ -353,18 +360,30 @@ public class DFS implements Serializable {
         Metadata metadata = readMetaData(); //always read first when creating
       
         File local_file  = new File(localFile);
-        if(local_file.exists()) {
-         System.out.println("\nAttempting to append file:\t "+ localFile);
-         
-         guid = md5(localFile);
-         Page page = new Page(0, guid, 0);
-         metadata.getFile(filename).addPage(page);
-         ChordMessageInterface peer = chord.locateSuccessor(guid);
-         peer.put(guid, new FileStream(localFile));
-         writeMetaData(metadata);
+        if (local_file.exists()) {
+            System.out.println("\nAttempting to append file:\t "+ localFile);
+            
+            guid = md5(localFile);
+            Page page = new Page(0, guid, 0);
+            metadata.getFile(filename).addPage(page);
+
+            ChordMessageInterface peer = chord.locateSuccessor(guid);
+            peer.put(guid, new FileStream(localFile));
+            writeMetaData(metadata);
 
         } else {
-            System.out.println("\n" + localFile +" doesn't not exist");
+            System.out.println("\n" + localFile +" does not exist. Creating the file locally.");
+            File newFile  = new File(localFile);
+            newFile.createNewFile();
+
+            guid = md5(localFile);
+
+            Page page = new Page(0, guid, 0);
+            metadata.getFile(filename).addPage(page);
+
+            ChordMessageInterface peer = chord.locateSuccessor(guid);
+            peer.put(guid, new FileStream(localFile));
+            writeMetaData(metadata);
         }
     } //end append() method
 } //end DFS.java class

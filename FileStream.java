@@ -28,10 +28,6 @@ public class FileStream extends InputStream implements Serializable {
       currentPosition = 0;	  
     }
 
-    public FileStream(Byte[] byteArray ) {
-
-    }
-    
     public FileStream() throws FileNotFoundException    {
       currentPosition = 0;	  
     }
